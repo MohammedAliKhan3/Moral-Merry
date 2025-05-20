@@ -1,20 +1,21 @@
 {
-    "name": "school-website",
-    "version": "1.0.0",
-    "description": "A modern school website with advanced styling",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js"
-    },
-    "dependencies": {
-        "axios": "^1.9.0",
-        "cors": "^2.8.5",
-        "ejs": "^3.1.9",
-        "express": "^4.21.2",
-        "gsap": "^3.12.2"
-    },
-    "devDependencies": {
-        "nodemon": "^3.0.2"
-    }
+  "name": "school-website",
+  "version": "1.0.0",
+  "description": "A modern school website with advanced styling",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "echo 'No build needed for backend app'"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.21.2",
+    "gsap": "^3.12.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
