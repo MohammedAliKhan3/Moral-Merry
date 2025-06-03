@@ -59,5 +59,5 @@ async function sendMessage() {
 
 // Welcome message
 window.addEventListener('DOMContentLoaded', () => {
-  appendMessage('bot', '👋 Hi! I’m the Greenwood High School assistant. Ask me anything about admissions, timings, or events!');
+  appendMessage('bot', '👋 Hi! I’m the Moral Merry High School assistant. Ask me anything about admissions, timings, or events!');
 });

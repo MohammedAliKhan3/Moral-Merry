@@ -243,8 +243,12 @@ app.use(cors({
 // Serve React build files statically (if applicable)
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Chat endpoint for POST requests from frontend
-const DEEPSEEK_API_KEY = '3792d48d5bbd40befa33904d88d22aab7f735bd51c4614828cb9a350a131edb2';
+require('dotenv').config(); // Make sure this is at the very top
+
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+
+// Now you can use DEEPSEEK_API_KEY in your API calls
+
 
 // Middleware
 app.use(cors());
