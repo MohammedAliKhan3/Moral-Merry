@@ -1,42 +1,81 @@
+// This must be the very first line of your file to ensure environment variables are loaded before anything else tries to use them.
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const app = express();
 const cors = require('cors');
 const axios = require('axios');
-// Set EJS as view engine
+
+// Get the DeepSeek API Key from environment variables.
+// This is the ONLY place DEEPSEEK_API_KEY should be declared.
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+
+// --- Middleware Setup ---
+
+// Configure CORS for production and local development.
+// For production, set CORS_ORIGIN on your hosting platform (e.g., Render)
+// to your domain(s) like "https://moralmerry.in,https://www.moralmerry.in"
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:3000'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Body parsing middleware (only once, before any routes that need it)
+app.use(express.json()); // To parse JSON request bodies
+app.use(express.urlencoded({ extended: true })); // To parse URL-encoded request bodies
+
+
+// --- View Engine Setup ---
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Serve static files
+// --- Static Files Serving ---
+// Serve static files (CSS, JS, images) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Removed all app.use(express.static(path.join(__dirname, 'build')));
+// lines as they indicate a conflicting React build setup which is not the primary focus here.
+
+
+// --- Routes ---
 
 // Home Page
 app.get('/', (req, res) => {
   res.render('home', {
     page: 'home',
     heroTitle: "Moral Merry School",
-    // logoPath: "/images/moralMerryLogo.jpg",
     heroSubtitle: " LIGHTED TO LIGHTEN ",
     features: [
-      { 
-        title: "Academic Excellence", 
-        icon: "📚", 
-        description: "Top-ranked curriculum with 98% college acceptance rate" 
+      {
+        title: "Academic Excellence",
+        icon: "📚",
+        description: "Top-ranked curriculum with 98% college acceptance rate"
       },
-      { 
-        title: "Sports Programs", 
-        icon: "⚽", 
-        description: "State championship teams in 8 different sports" 
+      {
+        title: "Sports Programs",
+        icon: "⚽",
+        description: "State championship teams in 8 different sports"
       },
-      { 
-        title: "Arts Education", 
-        icon: "🎨", 
-        description: "Award-winning visual and performing arts programs" 
+      {
+        title: "Arts Education",
+        icon: "🎨",
+        description: "Award-winning visual and performing arts programs"
       },
-      { 
-        title: "Yoga", 
-        icon: "🎨", 
-        description: "Kids are taught Yoga to be stress free." 
+      {
+        title: "Yoga",
+        icon: "🎨", // Using original icon as specified
+        description: "Kids are taught Yoga to be stress free."
       }
     ],
     news: [
@@ -73,9 +112,9 @@ app.get('/', (req, res) => {
         alt: "Library",
         caption: "Award-winning library with 50,000 volumes"
       },
-       {
+      {
         src: "/images/StudentMarch.jpg",
-        alt: "Library",
+        alt: "Library", // Using original alt text as specified
         caption: "Award-winning library with 50,000 volumes"
       }
     ]
@@ -197,7 +236,6 @@ app.get('/contact', (req, res) => {
   });
 });
 
-
 // Gallery Page
 app.get('/gallery', (req, res) => {
   res.render('gallery', {
@@ -232,37 +270,14 @@ app.get('/gallery', (req, res) => {
   });
 });
 
-app.use(express.json()); // To parse JSON body
-app.use(cors({
-  origin: 'http://localhost:3000',  // Allow frontend origin
-  credentials: true,
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// --- API Endpoints ---
 
-// Serve React build files statically (if applicable)
-app.use(express.static(path.join(__dirname, 'build')));
-
-require('dotenv').config(); // Make sure this is at the very top
-
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
-
-// Now you can use DEEPSEEK_API_KEY in your API calls
-
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Serve static frontend (React build)
-app.use(express.static(path.join(__dirname, 'build')));
+// POST: Contact Form Submission
 app.post('/api/contact', (req, res) => {
   const { name, email, subject, message, _honeypot } = req.body;
 
   // Basic honeypot spam check
   if (_honeypot) {
-    // If honeypot is filled, likely a bot - reject silently
     return res.status(400).json({ error: 'Spam detected' });
   }
 
@@ -271,16 +286,15 @@ app.post('/api/contact', (req, res) => {
     return res.status(400).json({ error: 'Please fill all required fields' });
   }
 
-  // Log the data (or send email, save to DB, etc)
   console.log('Contact Form Submission:');
   console.log('Name:', name);
   console.log('Email:', email);
   console.log('Subject:', subject);
   console.log('Message:', message);
 
-  // Respond success
   return res.status(200).json({ message: 'Thank you for contacting us! We will get back to you soon.' });
 });
+
 // POST: Chat endpoint
 app.post('/chat', async (req, res) => {
   try {
@@ -291,86 +305,67 @@ app.post('/chat', async (req, res) => {
       return res.status(400).json({ error: 'Message is required' });
     }
 
+    // Ensure API Key is available. This check is crucial for local dev and deployment.
+    if (!DEEPSEEK_API_KEY) {
+      console.error('DEEPSEEK_API_KEY is not set in environment variables.');
+      return res.status(500).json({ success: false, error: 'Chat service not configured. API Key is missing.' });
+    }
+
     const messages = [
       {
         role: "system",
-        content: `You are an AI assistant for Moral Merry School,your name is MMS Champ,school focuses on moral values and coextensive,unity in diversity,✅ Moral Merry High School – Key Highlights & Guidelines
-🏫 School Overview
-Name: Moral Merry High School
+        content: `You are an AI assistant for Moral Merry School, your name is MMS Champ. The school focuses on moral values and coextensive learning, promoting unity in diversity.
 
-Principal: Mr. Abdul Akbar Khan
+        🏫 School Overview:
+        Name: Moral Merry High School
+        Principal: Mr. Abdul Akbar Khan
+        Location: 10-4-13/11/A/5/1, MG Nagar, Owaisi Pura, Masab Tank, Hyderabad, Telangana 500028
 
-Location: 10-4-13/11/A/5/1, MG Nagar, Owaisi Pura, Masab Tank, Hyderabad, Telangana 500028
+        🕗 Timings:
+        School Hours: 8:00 AM to 3:00 PM (Monday to Saturday)
 
-Guideline:
-Use this section to introduce the school in a professional tone. Keep it factual and location-specific.
+        💰 Fees:
+        Minimal and Affordable: Designed to make quality education accessible to all families. Always direct users to contact the office for current fee structures. Do not quote exact amounts.
 
-🕗 Timings
-School Hours: 8:00 AM to 3:00 PM (Monday to Saturday)
+        🎓 Academics & Recognition:
+        Strong Academic Curriculum
+        Awards for English-Speaking Students
+        Annual Science Fair and Competitions
 
-Guideline:
-Always mention the full schedule clearly for parents' planning and transportation coordination.
+        🧘 Extracurricular Activities:
+        Yoga and Meditation Sessions
+        Sports Programs
+        Creative and Engaging Club Activities
 
-💰 Fees
-Minimal and Affordable: Designed to make quality education accessible to all families.
+        👩‍🏫 Faculty:
+        Experienced and Caring Teachers
+        Supportive Learning Environment
 
-Guideline:
-Avoid quoting exact amounts in automated replies. Direct users to contact the office for current fee structures.
+        📅 Special Initiatives:
+        Parent Connect Days – Monthly interaction between teachers and parents
+        Language & Leadership Workshops
 
-🎓 Academics & Recognition
-Strong Academic Curriculum
-
-Awards for English-Speaking Students
-
-Annual Science Fair and Competitions
-
-Guideline:
-Highlight unique academic features to differentiate from other schools. Reinforce excellence and opportunities for student recognition.
-
-🧘 Extracurricular Activities
-Yoga and Meditation Sessions
-
-Sports Programs
-
-Creative and Engaging Club Activities
-
-Guideline:
-Focus on holistic development. Use this section to show the school’s emphasis on both mind and body.
-
-👩‍🏫 Faculty
-Experienced and Caring Teachers
-
-Supportive Learning Environment
-
-Guideline:
-Use positive, reassuring language to build trust with prospective parents.
-
-📅 Special Initiatives (Add-on Suggestion)
-Parent Connect Days – Monthly interaction between teachers and parents
-
-Language & Leadership Workshops
-
-Guideline:
-Use this section to add new or suggested features that can enhance school engagement.`
+        Guideline: Always maintain a professional, helpful, and school-appropriate tone. If asked about fees, always direct to the office. Do not generate information outside of what is provided about Moral Merry School.`
       },
       ...conversation.filter(msg =>
         msg?.role && ['system', 'user', 'assistant'].includes(msg.role) &&
-        msg?.content?.trim()
-      ),
+        typeof msg.content === 'string' && msg.content.trim()
+      ).map(msg => ({ role: msg.role, content: msg.content.trim() })),
       { role: "user", content: userMessage.trim() }
     ];
 
     const response = await axios.post('https://api.together.xyz/v1/chat/completions', {
+      // Confirmed: Using your preferred model
       model: "meta-llama/Llama-Vision-Free",
       messages,
       temperature: 0.7,
-      max_tokens: 150
+      max_tokens: 150, // Confirmed: Using your preferred max_tokens
     }, {
       headers: {
         'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
         'Content-Type': 'application/json'
       },
-      timeout: 8000
+      timeout: 8000 // Confirmed: Using your preferred timeout
     });
 
     const data = response.data;
@@ -384,18 +379,19 @@ Use this section to add new or suggested features that can enhance school engage
 
   } catch (error) {
     console.error('Error in /chat endpoint:', error.message);
+    if (error.response) {
+      console.error('API Response Error Data:', error.response.data);
+    }
     res.status(500).json({
       success: false,
       error: 'Chat service unavailable',
-      debug: error.message // remove this line if you don't want to expose errors
+      debug: error.message // Keep this for debugging during development, consider removing in production for security
     });
   }
 });
 
-// Start server
+// --- Server Start ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
