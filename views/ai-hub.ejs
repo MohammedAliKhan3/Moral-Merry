@@ -1,0 +1,397 @@
+<%- include('partials/header', { page: 'ai-hub' }) %>
+
+<main class="ai-hub-container">
+    <div class="ai-hub-hero">
+        <div class="hero-content">
+            <h1>Welcome to the AI Hub</h1>
+            <p>Your futuristic learning partner at Moral Merry School.</p>
+        </div>
+    </div>
+
+    <div class="ai-cards-grid">
+        <div class="ai-card-wrapper">
+            <div class="ai-card large-card ai-chat-card" id="aiChatCard">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8-4 4 4 4"/><path d="M16 12H8"/></svg>
+                    </div>
+                    <h3>Ask School AI Assistant</h3>
+                    <!-- Added description for expanded functionality -->
+                    <!-- <p class="card-description" style="color: lightblue;">(Get answers to school questions and homework help.)</p> -->
+                    <button class="close-chat-btn" id="closeChatBtn" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                    <button class="expand-chat-btn" id="expandChatBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3m-18 0v3a2 2 0 0 0 2 2h3"/></svg>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="chat-ui">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message bot">
+                                <p>Hello! I'm MMS Champ, your school AI assistant. How can I help you learn today?</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chatInput" placeholder="Type your question here...">
+                            <button id="sendMessageBtn">Send</button>
+                        </div>
+                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- All other AI cards removed as per request -->
+    </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<style>
+    /* New styles for the wrapper and full-screen mode */
+    .ai-card-wrapper {
+        position: relative; /* Needed for z-index and absolute positioning of children */
+        display: contents; /* Allows children to behave as if wrapper isn't there in layout */
+    }
+
+    .ai-chat-card {
+        transition: all 0.3s ease-in-out; /* Smooth transition for resizing */
+        z-index: 1; /* Ensure it stays above other elements when expanded */
+    }
+
+    /* Expand/Close buttons styling */
+    .expand-chat-btn, .close-chat-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        position: absolute; /* Position relative to .ai-chat-card */
+        top: 10px;
+        right: 10px;
+        color: #007bff; /* Adjust color to fit your design */
+        display: flex; /* For icon centering */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .close-chat-btn {
+        color: #dc3545; /* Red color for close */
+        z-index: 10; /* Ensure close button is clickable when expanded */
+    }
+    .expand-chat-btn {
+        right: 40px; /* Adjust position to not overlap close button */
+    }
+
+    /* Additional style for the card description */
+    .ai-chat-card .card-description {
+        font-size: 0.85em;
+        color: #666;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+
+    /* Full-screen mode for the chat card */
+    @media (max-width: 768px) { /* Only apply full screen on smaller devices */
+        .ai-chat-card.full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            z-index: 1000; /* Bring to front of everything */
+            background-color: var(--card-bg, #fff); /* Use your card background color */
+            margin: 0;
+            padding: 0; /* Remove padding if it interferes */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Hide scrollbars on main page */
+        }
+
+        .ai-chat-card.full-screen .card-body {
+            flex-grow: 1; /* Make card-body take up remaining space */
+            overflow: hidden; /* Hide scrollbars from card-body itself if it has them */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-chat-card.full-screen .chat-ui {
+            height: 100%; /* Make chat-ui fill the available height */
+        }
+        .ai-chat-card.full-screen .chat-messages {
+            height: calc(100% - 60px); /* Adjust based on input area height */
+            flex-grow: 1;
+            overflow-y: auto; /* Ensure message area scrolls */
+        }
+        .ai-chat-card.full-screen .card-header {
+             padding-right: 80px; /* Give space for buttons */
+        }
+
+        /* Hide other cards when one is full screen */
+        .ai-cards-grid.full-screen-active .ai-card:not(.full-screen) {
+            display: none;
+        }
+
+        /* Hide expand button when in full screen */
+        .ai-chat-card.full-screen .expand-chat-btn {
+            display: none;
+        }
+    }
+
+    /* Existing chat-specific CSS from your EJS, if any, needs to be here or in your main CSS */
+    .chat-ui {
+        display: flex;
+        flex-direction: column;
+        height: 350px; /* Adjust as needed */
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .chat-messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 15px;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        word-wrap: break-word;
+        font-size: 0.9em;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background-color: #007bff;
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message.bot {
+        align-self: flex-start;
+        background-color: #e2e6ea;
+        color: #333;
+        border-bottom-left-radius: 5px;
+    }
+
+    .chat-input-area {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+        background-color: #fff;
+    }
+
+    .chat-input-area input {
+        flex-grow: 1;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-right: 10px;
+        font-size: 0.9em;
+    }
+
+    .chat-input-area button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background-color 0.2s ease;
+    }
+
+    .chat-input-area button:hover {
+        background-color: #218838;
+    }
+
+    /* Typing indicator styles */
+    .typing-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        height: 20px;
+    }
+    .typing-indicator .dot {
+        width: 8px;
+        height: 8px;
+        background-color: #555;
+        border-radius: 50%;
+        margin: 0 4px;
+        animation: bounce 1.4s infinite ease-in-out;
+    }
+    .typing-indicator .dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    .typing-indicator .dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    @keyframes bounce {
+        0%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-8px);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const aiChatCard = document.getElementById('aiChatCard'); // The chat card itself
+        const expandChatBtn = document.getElementById('expandChatBtn');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const aiCardsGrid = document.querySelector('.ai-cards-grid'); // Parent grid for other cards
+
+        // Store conversation history. Initial bot message is already there.
+        let conversationHistory = [{
+            role: 'assistant',
+            content: "Hello! I'm MMS Champ, your school AI assistant. How can I help you learn today?"
+        }];
+
+        const appendMessage = (role, content) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', role);
+            messageDiv.innerHTML = `<p>${content}</p>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        };
+
+        const sendMessage = async () => {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === '') return;
+
+            // Append user message immediately
+            appendMessage('user', userMessage);
+            conversationHistory.push({ role: 'user', content: userMessage });
+            chatInput.value = ''; // Clear input
+            sendMessageBtn.disabled = true; // Disable button to prevent double-sends
+            chatInput.disabled = true;     // Disable input
+
+            typingIndicator.style.display = 'flex'; // Show typing indicator
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userMessage: userMessage,
+                        conversation: conversationHistory
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json(); // Try to parse error response as JSON
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const botReply = data.reply;
+
+                if (botReply) {
+                    appendMessage('bot', botReply);
+                    conversationHistory.push({ role: 'assistant', content: botReply });
+                } else {
+                    appendMessage('bot', `I didn't get a clear response. Please try again or rephrase your question.`);
+                    console.error('API responded with no reply content:', data);
+                }
+
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                appendMessage('bot', `Oops! Something went wrong. Please try again. (Error: ${error.message})`);
+            } finally {
+                typingIndicator.style.display = 'none'; // Hide typing indicator
+                sendMessageBtn.disabled = false; // Re-enable button
+                chatInput.disabled = false;     // Re-enable input
+                chatInput.focus(); // Focus input for next message
+            }
+        };
+
+        sendMessageBtn.addEventListener('click', sendMessage);
+
+        chatInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // --- New Full Screen Logic ---
+
+        // Function to check if it's a mobile screen
+        const isMobile = () => window.innerWidth <= 768; // Adjust breakpoint as needed
+
+        const toggleFullScreenChat = () => {
+            if (isMobile()) { // Only toggle on mobile
+                aiChatCard.classList.toggle('full-screen');
+                aiCardsGrid.classList.toggle('full-screen-active'); // To hide other cards
+
+                if (aiChatCard.classList.contains('full-screen')) {
+                    expandChatBtn.style.display = 'none';
+                    closeChatBtn.style.display = 'flex'; // Show close button
+                    // Optionally, disable scrolling on the body when full-screen is active
+                    document.body.style.overflow = 'hidden';
+                    chatInput.focus(); // Focus on the input when expanded
+                } else {
+                    expandChatBtn.style.display = 'flex';
+                    closeChatBtn.style.display = 'none'; // Hide close button
+                    document.body.style.overflow = ''; // Re-enable body scrolling
+                }
+            }
+        };
+
+        // Click anywhere on the card to expand (only if on mobile)
+        aiChatCard.addEventListener('click', (event) => {
+            // Prevent clicks on buttons inside the card from triggering expand
+            if (event.target.closest('button')) {
+                return;
+            }
+            toggleFullScreenChat();
+        });
+
+        expandChatBtn.addEventListener('click', toggleFullScreenChat);
+        closeChatBtn.addEventListener('click', toggleFullScreenChat);
+
+        // Initial setup for buttons visibility on page load
+        if (isMobile()) {
+            expandChatBtn.style.display = 'flex';
+            closeChatBtn.style.display = 'none';
+        } else {
+            expandChatBtn.style.display = 'none'; // Hide expand button on desktop
+            closeChatBtn.style.display = 'none';
+        }
+
+        // Adjust buttons on window resize (e.g., rotating tablet)
+        window.addEventListener('resize', () => {
+            if (isMobile()) {
+                if (!aiChatCard.classList.contains('full-screen')) { // Only show expand if not already full screen
+                   expandChatBtn.style.display = 'flex';
+                   closeChatBtn.style.display = 'none';
+                }
+            } else {
+                expandChatBtn.style.display = 'none';
+                closeChatBtn.style.display = 'none';
+                aiChatCard.classList.remove('full-screen'); // Remove full screen if resizing to desktop
+                aiCardsGrid.classList.remove('full-screen-active');
+                document.body.style.overflow = '';
+            }
+        });
+
+    });
+</script>

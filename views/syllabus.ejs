@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<div class="syllabus-container">
+    <div class="syllabus-header">
+        <h1>Class Syllabus</h1>
+        <p>Find the detailed syllabus for each class and subject below. You can download the syllabus in PDF format.</p>
+    </div>
+
+    <% syllabus.forEach(classData => { %>
+        <section class="class-syllabus">
+            <h2><%= classData.class %></h2>
+            <div class="subject-list">
+                <% classData.subjects.forEach(subject => { %>
+                    <div class="subject-item">
+                        <h3><%= subject.name %></h3>
+                        <p><%= subject.description %></p>
+                        <a href="<%= subject.link %>" class="download-btn" target="_blank" rel="noopener noreferrer">Open Textbook</a>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+    <% }); %>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,7 +1,66 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden; /* For scroll animations */
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(50px); /* Increased initial transform */
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1); /* More epic easing */
+}
+
+.section-header.visible { /* Class added by JS for animation */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-header h2 {
+    font-size: 2.8em;
+    color: #1a2a4b;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-header h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #007bff; /* Primary color */
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.section-header p {
+    font-size: 1.1em;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* About Hero Section */
 .about-hero {
     height: 60vh;
-    /* background: url('/images/about-hero.jpg') center/cover no-repeat; */
-    background: #13005A !important; 
+    background: #13005A !important; /* Specific background color */
     position: relative;
     display: flex;
     align-items: center;
@@ -32,15 +91,15 @@
     font-weight: 700;
     margin-bottom: 1rem;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(50px); /* Increased initial transform */
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1); /* More epic easing */
 }
 
 .hero-content p {
     font-size: 1.5rem;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    transform: translateY(50px); /* Increased initial transform */
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s, transform 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s; /* More epic easing with delay */
 }
 
 .hero-content h1.visible,
@@ -49,6 +108,7 @@
     transform: translateY(0);
 }
 
+/* Mission Section */
 .mission-section {
     padding: 6rem 5%;
     background: white;
@@ -65,8 +125,8 @@
 .mission-content {
     flex: 1;
     opacity: 0;
-    transform: translateX(-50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateX(-100px); /* Increased initial transform */
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1); /* More epic easing */
 }
 
 .mission-content.visible {
@@ -90,8 +150,8 @@
 .mission-image {
     flex: 1;
     opacity: 0;
-    transform: translateX(50px);
-    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    transform: translateX(100px); /* Increased initial transform */
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s, transform 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s; /* More epic easing with delay */
 }
 
 .mission-image.visible {
@@ -124,6 +184,7 @@
     display: block;
 }
 
+/* Stats Section */
 .stats-section {
     padding: 4rem 5%;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -145,13 +206,16 @@
     border-radius: 10px;
     backdrop-filter: blur(5px);
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(50px); /* Increased initial transform */
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease; /* More epic easing */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Initial shadow */
 }
 
 .stat-card.visible {
     opacity: 1;
     transform: translateY(0);
+    transition-delay: var(--delay, 0s); /* Staggered delay */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on visible */
 }
 
 .stat-value {
@@ -165,136 +229,15 @@
     opacity: 0.9;
 }
 
-.team-section {
-    padding: 6rem 5%;
-    background: white;
+.stat-card .coming-soon {
+    font-style: italic;
+    color: #ffc107;
+    font-weight: normal;
+    margin-top: 10px;
+    font-size: 1em;
 }
 
-.section-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 4rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.section-header.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.section-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--dark);
-    margin-bottom: 1rem;
-}
-
-.section-header p {
-    font-size: 1.1rem;
-    color: #6c757d;
-}
-
-.team-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.team-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease var(--delay), transform 0.8s ease var(--delay);
-}
-
-.team-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.team-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-}
-
-.team-image {
-    position: relative;
-    height: 300px;
-    overflow: hidden;
-}
-
-.team-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.team-card:hover .team-image img {
-    transform: scale(1.05);
-}
-
-.social-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(67, 97, 238, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.team-card:hover .social-overlay {
-    opacity: 1;
-}
-
-.social-overlay a {
-    color: white;
-    width: 3rem;
-    height: 3rem;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.social-overlay a:hover {
-    background: white;
-    color: var(--primary);
-    transform: translateY(-5px);
-}
-
-.team-info {
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.team-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: var(--dark);
-}
-
-.team-info p {
-    color: var(--primary);
-    font-weight: 500;
-}
-
+/* Principal Section */
 .principal-section {
     background: #f9f9f9;
     padding: 5rem 5%;
@@ -343,15 +286,15 @@
     margin-top: 3rem;
   }
   
-  /* Image styling */
-  .principal-image img {
-    width: 120px;
+/* Image styling */
+.principal-image img {
+    width: 120px; /* Adjusted from original to match the previous version for consistency */
     border-radius: 50%;
     object-fit: cover;
-  }
+}
   
-  /* Responsive layout: stack vertically on small screens */
-  @media (max-width: 768px) {
+/* Responsive layout: stack vertically on small screens */
+@media (max-width: 768px) {
     .principal-container {
       flex-direction: column;
       align-items: center;
@@ -365,7 +308,7 @@
     .principal-message {
       width: 100%;
     }
-  }
+}
   
 
 .faculty-messages {
@@ -373,22 +316,6 @@
     background: #f9f9f9;
     color: #222;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #1a1a1a;
-}
-
-.section-header p {
-    font-size: 1.1rem;
-    color: #666;
 }
 
 .messages-grid {
@@ -403,11 +330,20 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     padding: 2rem;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease; /* Added opacity and shadow transitions */
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(50px); /* Initial state for animation */
+}
+
+.message-card.visible { /* Class added by JS for animation */
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: var(--delay, 0s); /* Staggered delay */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow on visible */
 }
 
 .message-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px); /* More pronounced hover effect */
 }
 
 .quote {
@@ -435,37 +371,244 @@
     transform: translateY(-5px);
 }
 
+/* --- Timeline Specific Styles --- */
+.our-journey-section {
+    background-color: #fff;
+    padding: 100px 0;
+    position: relative;
+}
+
+.timeline-wrapper {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0;
+    left: 50%; /* Center the line */
+    width: 4px;
+    background-color: #e0e0e0; /* Light gray line */
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 0; /* Keep behind content */
+}
+
+/* This line grows dynamically with JS */
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff; /* Primary color */
+    height: var(--timeline-fill-height, 0%); /* Use CSS variable set by JS */
+    transition: height 1s cubic-bezier(0.23, 1, 0.32, 1); /* More epic easing for line fill */
+    border-radius: 2px;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); /* Subtle glow effect */
+}
+
+.timeline-events {
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start; /* Align content to top of the item */
+    margin-bottom: 80px; /* Space between items */
+    position: relative;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item::before {
+    content: attr(data-year); /* Display year as the circle content */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; /* Size of the year circle */
+    height: 80px;
+    background-color: #fff;
+    border: 4px solid #e0e0e0; /* Gray border initially */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+    z-index: 2; /* On top of the line */
+    transition: border-color 0.5s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease; /* More epic easing */
+    box-shadow: 0 0 0 rgba(0,0,0,0); /* Initial shadow */
+}
+
+/* Animation for active timeline items */
+.timeline-item.in-view::before {
+    border-color: #007bff; /* Blue border when in view */
+    background-color: #e6f0ff; /* Light blue background when in view */
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.4); /* Enhanced glow on active circle */
+}
+
+.timeline-item.in-view .timeline-content {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: var(--delay, 0s); /* Staggered delay */
+}
+
+.timeline-content {
+    width: calc(50% - 70px); /* Adjust width to make space for the circle and gap */
+    padding: 20px 30px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    opacity: 0; /* Hidden by default for animation */
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease; /* More epic easing */
+    will-change: transform, opacity;
+}
+
+.timeline-content h3 {
+    font-size: 1.6em;
+    color: #1a2a4b;
+    margin-bottom: 10px;
+}
+
+.timeline-content p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Positioning for left and right content */
+.timeline-content.left {
+    margin-right: auto; /* Push to left */
+    transform: translateX(-100px); /* Increased initial transform */
+}
+
+.timeline-content.right {
+    margin-left: auto; /* Push to right */
+    transform: translateX(100px); /* Increased initial transform */
+}
+
+/* Media Queries for Responsiveness */
 @media (max-width: 992px) {
+    .about-hero h1 {
+        font-size: 3em;
+    }
+    .about-hero p {
+        font-size: 1.2em;
+    }
+
     .mission-section .container {
         flex-direction: column;
+        text-align: center;
+        gap: 30px;
     }
-    
-    .mission-content,
-    .mission-image {
-        width: 100%;
+
+    .mission-content {
+        padding-right: 0;
+    }
+
+    .principal-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .principal-image img {
+        max-width: 80%;
+    }
+
+    /* Timeline on smaller screens: make it single-column */
+    .timeline-line {
+        left: 20px; /* Move line to the left */
+    }
+
+    .timeline-item {
+        flex-direction: column; /* Stack year and content */
+        align-items: flex-start;
+        margin-bottom: 50px;
+    }
+
+    .timeline-item::before {
+        left: 20px; /* Align circle with the line */
+        transform: translateX(-50%);
+        top: -15px; /* Adjust position */
+        width: 70px;
+        height: 70px;
+        font-size: 1em;
+    }
+
+    .timeline-content {
+        width: 100%; /* Take full width */
+        margin-left: 0;
+        margin-right: 0;
+        transform: translateX(0); /* Reset transform */
+        margin-top: 40px; /* Space from the year circle */
+        position: relative; /* For the small arrow */
+        left: 0; /* Reset left/right positioning */
+    }
+
+    .timeline-content.left, .timeline-content.right {
+        transform: translateX(0); /* Remove initial transform for reveal */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* Small arrow for content box pointing to the line */
+    .timeline-content::before {
+        content: '';
+        position: absolute;
+        top: -10px; /* Position above the box */
+        left: 25px; /* Align with the line */
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent #f8f8f8 transparent; /* Match content background */
+    }
+    .timeline-item.in-view .timeline-content { /* Reapply animations for smaller screens */
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
 @media (max-width: 768px) {
-    .about-hero {
-        height: 50vh;
-        margin-top: 70px;
-    }
-    
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero-content p {
-        font-size: 1.2rem;
-    }
-    
-    .mission-content h2,
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 2em;
     }
-    
+    .section-header p {
+        font-size: 1em;
+    }
     .stat-value {
-        font-size: 2.5rem;
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero h1 {
+        font-size: 2.5em;
+    }
+    .about-hero p {
+        font-size: 1em;
+    }
+    .principal-message h2 {
+        font-size: 1.8em;
+    }
+    .principal-message p {
+        font-size: 0.9em;
+    }
+    .timeline-item::before {
+        width: 60px;
+        height: 60px;
+        font-size: 0.9em;
+    }
+    .timeline-content {
+        padding: 15px 20px;
+    }
+    .timeline-content h3 {
+        font-size: 1.4em;
+    }
+    .timeline-content p {
+        font-size: 0.9em;
     }
 }

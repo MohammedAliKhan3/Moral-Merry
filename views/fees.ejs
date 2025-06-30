@@ -1,0 +1,88 @@
+<%- include('partials/header') %>
+
+<div class="fees-container">
+    <div class="fees-header">
+        <h1>Student Fee Portal</h1>
+        <p>We're working on enhancing our online fee payment experience!</p>
+    </div>
+
+    <div class="coming-soon-message">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-hourglass">
+            <path d="M12 2v6h.5a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H12l-6 6V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6Z"/>
+            <path d="M12 22v-6h-.5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2H12l6-6V22a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-6Z"/>
+            <path d="m17 11-5 5-5-5"/>
+            <path d="M12 16V8"/>
+        </svg>
+        <h2>Feature Coming Soon!</h2>
+        <p>Our online fee payment and detailed fee lookup portal is currently under development.</p>
+        <p>For any immediate fee-related inquiries, please contact the school office directly.</p>
+        <a href="/contact" class="contact-btn">Contact Us</a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<style>
+    /* Basic styling for the coming soon message */
+    .coming-soon-message {
+        text-align: center;
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .coming-soon-message h2 {
+        color: #007bff;
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+
+    .coming-soon-message p {
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .coming-soon-message .icon-hourglass {
+        color: #ffc107; /* A warning/upcoming color */
+        margin-bottom: 20px;
+    }
+
+    .contact-btn {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-btn:hover {
+        background-color: #218838;
+    }
+
+    /* Hide the form and receipt when "coming soon" is active (though they are removed from HTML directly) */
+    #fee-lookup-form,
+    #loading-indicator,
+    #error-message,
+    #fee-details-receipt {
+        display: none !important;
+    }
+</style>
+
+<script>
+    // No specific JavaScript needed for the "Coming Soon" page,
+    // as the previous form and lookup logic is no longer present.
+    // This script block can remain empty or be removed if desired.
+    document.addEventListener('DOMContentLoaded', () => {
+        // Any general page load logic can go here if needed later
+    });
+</script>

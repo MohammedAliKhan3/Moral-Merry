@@ -49,7 +49,7 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 5%;
+    padding: 0.5rem 2%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,13 +59,15 @@ body {
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     height: 60px;
+    gap: 1rem;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    min-width: 180px; /* Added minimum width for logo */
+    flex-shrink: 0;
+    min-width: auto;
 }
 
 .logo-icon {
@@ -82,7 +84,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .logo-text span {
@@ -93,14 +95,18 @@ body {
 .nav-container {
     display: flex;
     align-items: center;
-    gap: 2rem; /* Added gap between nav and CTA */
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .main-nav ul {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
-    margin-right: 1.5rem; /* Added margin to separate from CTA */
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
 .nav-link {
@@ -111,7 +117,7 @@ body {
     padding: 0.3rem 0;
     transition: color 0.3s ease;
     font-size: 0.95rem;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 .nav-link::after {
@@ -142,28 +148,6 @@ body {
     width: 100%;
 }
 
-.nav-cta {
-    margin-left: auto; /* Push CTA to the right */
-}
-
-.cta-button {
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    color: white;
-    padding: 0.5rem 1.25rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-    font-size: 0.9rem;
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
-}
-
 .mobile-menu-toggle {
     display: none;
     background: none;
@@ -188,76 +172,58 @@ main {
     padding: 1rem 5%;
 }
 
-/* Add this to your existing header.css */
-.nav-spacer {
-    flex: 1; /* This will push the nav items to the right */
-    min-width: 20px; /* Minimum spacing */
-    max-width: 60px; /* Maximum spacing */
+@media (max-width: 1400px) {
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    .main-nav ul {
+        gap: 1rem;
+    }
+    .logo-text {
+        font-size: 1.1rem;
+    }
 }
 
-/* Update the glass-nav class to ensure proper spacing */
-.glass-nav {
-    /* Your existing styles */
-    padding: 0.5rem 5%;
-    gap: 1rem; /* Add gap between logo, spacer, nav and CTA */
+@media (max-width: 1200px) {
+    .nav-link {
+        font-size: 0.85rem;
+    }
+    .main-nav ul {
+        gap: 0.8rem;
+    }
 }
 
-/* Ensure logo container has proper minimum width */
-.logo-container {
-    min-width: 180px;
-}
-
-@media (max-width: 992px) {
-    .nav-container {
-        gap: 0;
+@media (max-width: 1024px) {
+    .main-nav {
+        display: none;
     }
     
-    .main-nav {
+    .main-nav.active {
+        display: flex;
         position: fixed;
         top: 60px;
-        right: -100%;
-        width: 80%;
-        max-width: 400px;
+        left: 0;
+        width: 100%;
         height: calc(100vh - 60px);
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        transition: right 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
         z-index: 999;
         padding-top: 2rem;
     }
 
-    .main-nav.active {
-        right: 0;
-    }
-
-    .main-nav ul {
+    .main-nav.active ul {
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
-        margin-right: 0;
+        margin: 0;
     }
 
     .mobile-menu-toggle {
         display: block;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-
-    .nav-cta {
-        display: none;
     }
     
     body {
@@ -265,9 +231,9 @@ main {
     }
 }
 
-@media (max-width: 1200px) {
-    .main-nav ul {
-        gap: 1rem;
+@media (max-width: 768px) {
+    .glass-nav {
+        padding: 0.5rem 2%;
     }
     
     .logo-text {
@@ -275,8 +241,48 @@ main {
     }
 }
 
-@media (max-width: 1100px) {
-    .glass-nav {
-        padding: 0.5rem 3%;
-    }
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* AI Hub specific header styles */
+body.ai-hub-page .glass-nav {
+    background: #1a202c; /* A dark background color */
+    border-bottom: 1px solid #4a5568; /* A subtle border */
+}
+
+body.ai-hub-page .nav-link {
+    color: #ffffff; /* White text for visibility */
+}
+
+body.ai-hub-page .nav-link:hover,
+body.ai-hub-page .nav-link.active {
+    color: #8a4dff; /* A bright purple for hover/active state */
+}
+
+body.ai-hub-page .nav-link.active::after {
+    background-color: #8a4dff;
+}
+
+body.ai-hub-page .mobile-menu-toggle span {
+    background: #ffffff; /* White hamburger icon */
+}
+
+body.ai-hub-page .logo-text {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: #ffffff;
+}
+
+body.ai-hub-page .logo-text span {
+    color: #ffffff;
 }

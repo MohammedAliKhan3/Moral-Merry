@@ -1,0 +1,91 @@
+/* Moral-Merry/public/css/syllabus.css */
+
+/* Page-specific styles for the Syllabus page */
+body {
+    background-color: #f9f9f9;
+}
+
+.syllabus-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.syllabus-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.syllabus-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.syllabus-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+}
+
+.class-syllabus {
+    margin-bottom: 2rem;
+}
+
+.class-syllabus h2 {
+    font-size: 1.8rem;
+    color: #444;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.subject-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.subject-item {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subject-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.subject-item h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.subject-item p {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.download-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}

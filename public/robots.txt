@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /fees
+Disallow: /api/
+Disallow: /admissions
+
+Sitemap: https://www.moralmerry.in/sitemap.xml 

@@ -58,6 +58,72 @@
     </div>
 </section>
 
+<!-- New Timeline Section -->
+<section class="our-journey-section">
+    <div class="container">
+        <div class="section-header" data-scroll>
+            <h2>Our Journey: A Timeline of Excellence</h2>
+            <p>Celebrating milestones that have shaped Moral Merry School</p>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div class="timeline-line" id="timelineLine"></div>
+            <div class="timeline-events">
+
+                <div class="timeline-item" data-year="1985">
+                    <div class="timeline-content right">
+                        <h3>1985: Foundation & Vision</h3>
+                        <p>Moral Merry School was founded with a vision to provide value-based education, focusing on holistic child development.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="1995">
+                    <div class="timeline-content left">
+                        <h3>1995: Expanding Horizons</h3>
+                        <p>Introduction of middle school grades, expanding our reach and curriculum to cater to a wider age group.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2005">
+                    <div class="timeline-content right">
+                        <h3>2005: Academic Achievements</h3>
+                        <p>Our first batch of Class X students achieved outstanding results, setting a new benchmark for academic excellence.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2010">
+                    <div class="timeline-content left">
+                        <h3>2010: Sports & Arts Integration</h3>
+                        <p>Inauguration of new sports facilities and dedicated arts studios, emphasizing extracurricular development.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2015">
+                    <div class="timeline-content right">
+                        <h3>2015: Community Outreach</h3>
+                        <p>Launched various community service programs, fostering social responsibility among our students.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2020">
+                    <div class="timeline-content left">
+                        <h3>2020: Digital Transformation</h3>
+                        <p>Integrated advanced e-learning platforms and smart classrooms to enhance modern teaching methodologies.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2024">
+                    <div class="timeline-content right">
+                        <h3>2024: Celebrating Diversity</h3>
+                        <p>Initiated new cultural exchange programs, promoting unity in diversity and global awareness.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End New Timeline Section -->
 
 <section class="faculty-messages">
     <div class="section-header" data-scroll>
@@ -80,6 +146,137 @@
     </div>
 </section>
 
-<%- include('partials/footer'); %>
-<%- include('partials/chatbot') %>
-<script src="/js/public.js"></script>
+<%- include('partials/footer') %>
+
+<!-- Link to the external CSS file -->
+<link rel="stylesheet" href="/css/about.css">
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Timeline Animation Logic ---
+        const timelineLine = document.getElementById('timelineLine');
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const ourJourneySection = document.querySelector('.our-journey-section');
+        const sectionHeaders = document.querySelectorAll('.section-header');
+        const missionContent = document.querySelector('.mission-content');
+        const missionImage = document.querySelector('.mission-image');
+        const statCards = document.querySelectorAll('.stat-card');
+        const heroContentH1 = document.querySelector('.hero-content h1');
+        const heroContentP = document.querySelector('.hero-content p');
+
+
+        const animateOnScroll = () => {
+            // Hero section animations
+            if (isElementInViewport(heroContentH1, 0.7)) {
+                heroContentH1.classList.add('visible');
+            } else {
+                heroContentH1.classList.remove('visible');
+            }
+            if (isElementInViewport(heroContentP, 0.7)) {
+                heroContentP.classList.add('visible');
+            } else {
+                heroContentP.classList.remove('visible');
+            }
+
+            // Section Header animations
+            sectionHeaders.forEach(header => {
+                if (isElementInViewport(header, 0.8)) {
+                    header.classList.add('visible');
+                } else {
+                    header.classList.remove('visible');
+                }
+            });
+
+            // Mission section animations
+            if (isElementInViewport(missionContent, 0.7)) {
+                missionContent.classList.add('visible');
+            } else {
+                missionContent.classList.remove('visible');
+            }
+            if (isElementInViewport(missionImage, 0.7)) {
+                missionImage.classList.add('visible');
+            } else {
+                missionImage.classList.remove('visible');
+            }
+
+            // Stats section animations
+            statCards.forEach(card => {
+                if (isElementInViewport(card, 0.8)) {
+                    card.classList.add('visible');
+                } else {
+                    card.classList.remove('visible');
+                }
+            });
+
+
+            if (!ourJourneySection) return;
+
+            const sectionTop = ourJourneySection.getBoundingClientRect().top;
+            const sectionHeight = ourJourneySection.clientHeight;
+            const viewportHeight = window.innerHeight;
+
+            // Calculate scroll progress within the section for the line animation
+            let scrollProgress = 0;
+            // The line should only start filling when the section comes into view
+            // and should be full when the section is fully scrolled past.
+            const sectionVisibleStart = Math.max(0, sectionTop);
+            const sectionVisibleEnd = Math.min(viewportHeight, sectionTop + sectionHeight);
+            
+            // Calculate how much of the section's height has scrolled into view relative to the viewport
+            const scrolledIntoView = viewportHeight - sectionTop;
+            const totalScrollLength = sectionHeight + viewportHeight; // The total distance over which the line animates
+
+            if (totalScrollLength > 0) { // Avoid division by zero
+                scrollProgress = Math.min(1, Math.max(0, scrolledIntoView / totalScrollLength));
+            }
+            
+            // Update the height of the active part of the timeline line
+            if (timelineLine) {
+                // We're setting a CSS custom property that the ::before pseudo-element uses
+                // This makes the blue line fill the gray line as the user scrolls
+                ourJourneySection.style.setProperty('--timeline-fill-height', `${scrollProgress * 100}%`);
+            }
+
+
+            // Check each timeline item for visibility and add 'in-view' class
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const triggerPoint = window.innerHeight * 0.8; // Trigger when 80% of viewport has passed it
+
+                // Check if item's top is above the trigger point AND item is still visible (not fully scrolled above)
+                if (itemTop < triggerPoint && itemTop + item.clientHeight > 0) {
+                    item.classList.add('in-view');
+                } else {
+                    item.classList.remove('in-view');
+                }
+            });
+        };
+
+        // Helper function to check if element is in viewport for data-scroll animations
+        function isElementInViewport(el, threshold = 0.5) {
+            if (!el) return false;
+            const rect = el.getBoundingClientRect();
+            // Get the element's top and bottom relative to the viewport
+            const elemTop = rect.top;
+            const elemBottom = rect.bottom;
+
+            // Calculate the viewport height
+            const viewportHeight = (window.innerHeight || document.documentElement.clientHeight);
+
+            // Check if the element is visible based on the threshold
+            // Element is visible if its top is above the bottom of the viewport (minus threshold offset)
+            // AND its bottom is below the top of the viewport (plus threshold offset)
+            const isVisible = elemTop < viewportHeight * threshold && elemBottom > viewportHeight * (1 - threshold);
+            
+            return isVisible;
+        }
+
+        // Initial check on load
+        animateOnScroll();
+
+        // Add event listeners
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('resize', animateOnScroll); // Re-run on resize for layout changes
+
+    });
+</script>

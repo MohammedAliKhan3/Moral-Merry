@@ -12,6 +12,8 @@
     <% if (page === 'home') { %>
         <link rel="stylesheet" href="/css/home.css">
         <link rel="stylesheet" href="/css/chatbot.css">
+        <link rel="stylesheet" href="/css/fees.css">
+        <link rel="stylesheet" href="/css/chatbot.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <% } else if (page === 'about') { %>
@@ -45,37 +47,55 @@
         <link rel="stylesheet" href="/css/chatbot.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+    <% } else if (page === 'syllabus') { %>
+        <link rel="stylesheet" href="/css/syllabus.css">
+        <link rel="stylesheet" href="/css/chatbot.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <% } else if (page === 'fees') { %>
+        <link rel="stylesheet" href="/css/fees.css">
+        <link rel="stylesheet" href="/css/chatbot.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <% } else if (page === 'ai-hub') { %>
+        <link rel="stylesheet" href="/css/ai-hub.css">
+        <link rel="stylesheet" href="/css/chatbot.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="/js/main.js" defer></script>
 </head>
-<body>
+<body class="<%= page === 'ai-hub' ? 'ai-hub-page' : '' %>">
     <div class="color-gradient-bg"></div>
     <header class="glass-nav">
         <div class="logo-container">
-            <svg class="logo-icon" viewBox="0 0 24 24">
+            <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
             </svg>
             <h1 class="logo-text">Moral Merry <span>High</span></h1>
         </div>
-        <div class="nav-spacer"></div> <!-- Added spacer element -->
-        <nav class="main-nav">
-            <ul>
-                <li><a href="/" class="<%= page === 'home' ? 'active' : '' %> nav-link">Home</a></li>
-                <li><a href="/about" class="<%= page === 'about' ? 'active' : '' %> nav-link">About</a></li>
-                <li><a href="/admissions" class="<%= page === 'admissions' ? 'active' : '' %> nav-link">Admissions</a></li>
-                <li><a href="/programs" class="<%= page === 'programs' ? 'active' : '' %> nav-link">Programs</a></li>
-                <li><a href="/news" class="<%= page === 'news' ? 'active' : '' %> nav-link">News</a></li>
-                <li><a href="/gallery" class="<%= page === 'gallery' ? 'active' : '' %> nav-link">Gallery</a></li>
-                <li><a href="/contact" class="<%= page === 'contact' ? 'active' : '' %> nav-link">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="nav-cta">
-            <a href="/admissions" class="cta-button">Apply Now</a>
+        <div class="nav-container">
+            <nav id="main-nav" class="main-nav" role="navigation" aria-label="Main navigation">
+                <ul>
+                    <li><a href="/" class="<%= page === 'home' ? 'active' : '' %> nav-link" aria-current="<%= page === 'home' ? 'page' : 'false' %>">Home</a></li>
+                    <li><a href="/about" class="<%= page === 'about' ? 'active' : '' %> nav-link" aria-current="<%= page === 'about' ? 'page' : 'false' %>">About</a></li>
+                    <li><a href="/admissions" class="<%= page === 'admissions' ? 'active' : '' %> nav-link" aria-current="<%= page === 'admissions' ? 'page' : 'false' %>">Admissions</a></li>
+                    <li><a href="/programs" class="<%= page === 'programs' ? 'active' : '' %> nav-link" aria-current="<%= page === 'programs' ? 'page' : 'false' %>">Programs</a></li>
+                    <li><a href="/syllabus" class="<%= page === 'syllabus' ? 'active' : '' %> nav-link" aria-current="<%= page === 'syllabus' ? 'page' : 'false' %>">Syllabus</a></li>
+                    <li><a href="/fees" class="<%= page === 'fees' ? 'active' : '' %> nav-link" aria-current="<%= page === 'fees' ? 'page' : 'false' %>">Fees</a></li>
+                    <li><a href="/news" class="<%= page === 'news' ? 'active' : '' %> nav-link" aria-current="<%= page === 'news' ? 'page' : 'false' %>">News</a></li>
+                    <li><a href="/gallery" class="<%= page === 'gallery' ? 'active' : '' %> nav-link" aria-current="<%= page === 'gallery' ? 'page' : 'false' %>">Gallery</a></li>
+                    <li><a href="/contact" class="<%= page === 'contact' ? 'active' : '' %> nav-link" aria-current="<%= page === 'contact' ? 'page' : 'false' %>">Contact</a></li>
+                    <li><a href="/ai-hub" class="<%= page === 'ai-hub' ? 'active' : '' %> nav-link" aria-current="<%= page === 'ai-hub' ? 'page' : 'false' %>">AI Hub</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" 
+                    aria-label="Toggle navigation menu" 
+                    aria-expanded="false" 
+                    aria-controls="main-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <button class="mobile-menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </header>
     <main>
