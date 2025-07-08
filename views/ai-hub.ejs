@@ -252,37 +252,57 @@
         const chatInput = document.getElementById('chatInput');
         const sendMessageBtn = document.getElementById('sendMessageBtn');
         const typingIndicator = document.getElementById('typingIndicator');
-        const aiChatCard = document.getElementById('aiChatCard'); // The chat card itself
+        const aiChatCard = document.getElementById('aiChatCard');
         const expandChatBtn = document.getElementById('expandChatBtn');
         const closeChatBtn = document.getElementById('closeChatBtn');
-        const aiCardsGrid = document.querySelector('.ai-cards-grid'); // Parent grid for other cards
+        const aiCardsGrid = document.querySelector('.ai-cards-grid');
 
-        // Store conversation history. Initial bot message is already there.
         let conversationHistory = [{
             role: 'assistant',
             content: "Hello! I'm MMS Champ, your school AI assistant. How can I help you learn today?"
         }];
 
+        const formatResponseText = (text) => {
+            // First preserve newlines
+            text = text.replace(/\n/g, '<br>');
+            
+            // Format numbered lists (1. 2. 3.)
+            text = text.replace(/(\d+)\.\s/g, '<br>$&');
+            
+            // Format bullet points
+            text = text.replace(/(^|\n)\*\s+/g, '$1- ');
+            
+            // Preserve bold and italic formatting
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            return text;
+        };
+
         const appendMessage = (role, content) => {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message', role);
-            messageDiv.innerHTML = `<p>${content}</p>`;
+            
+            // Only format bot responses, leave user messages as-is
+            const formattedContent = role === 'bot' ? formatResponseText(content) : content;
+            
+            messageDiv.innerHTML = `<p>${formattedContent}</p>`;
             chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         };
 
         const sendMessage = async () => {
             const userMessage = chatInput.value.trim();
             if (userMessage === '') return;
 
-            // Append user message immediately
+            // Append user message immediately (unformatted)
             appendMessage('user', userMessage);
             conversationHistory.push({ role: 'user', content: userMessage });
-            chatInput.value = ''; // Clear input
-            sendMessageBtn.disabled = true; // Disable button to prevent double-sends
-            chatInput.disabled = true;     // Disable input
+            chatInput.value = '';
+            sendMessageBtn.disabled = true;
+            chatInput.disabled = true;
 
-            typingIndicator.style.display = 'flex'; // Show typing indicator
+            typingIndicator.style.display = 'flex';
 
             try {
                 const response = await fetch('/chat', {
@@ -297,8 +317,7 @@
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json(); // Try to parse error response as JSON
-                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -308,24 +327,22 @@
                     appendMessage('bot', botReply);
                     conversationHistory.push({ role: 'assistant', content: botReply });
                 } else {
-                    appendMessage('bot', `I didn't get a clear response. Please try again or rephrase your question.`);
-                    console.error('API responded with no reply content:', data);
+                    appendMessage('bot', `I didn't get a clear response. Please try again.`);
                 }
 
-
             } catch (error) {
-                console.error('Error sending message:', error);
-                appendMessage('bot', `Oops! Something went wrong. Please try again. (Error: ${error.message})`);
+                console.error('Error:', error);
+                appendMessage('bot', `Oops! Something went wrong. Please try again.`);
             } finally {
-                typingIndicator.style.display = 'none'; // Hide typing indicator
-                sendMessageBtn.disabled = false; // Re-enable button
-                chatInput.disabled = false;     // Re-enable input
-                chatInput.focus(); // Focus input for next message
+                typingIndicator.style.display = 'none';
+                sendMessageBtn.disabled = false;
+                chatInput.disabled = false;
+                chatInput.focus();
             }
         };
 
+        // Event listeners
         sendMessageBtn.addEventListener('click', sendMessage);
-
         chatInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 sendMessage();
