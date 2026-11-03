@@ -89,6 +89,24 @@
       </div>
     </section>
 
+<% if (h.faq && h.faq.items.length) { -%>
+    <section class="section" aria-labelledby="faq-heading">
+      <div class="container narrow">
+        <div class="section-header" data-reveal>
+          <h2 id="faq-heading"><%= h.faq.heading %></h2>
+        </div>
+        <div class="faq-list">
+<% h.faq.items.forEach((q, i) => { -%>
+          <details class="faq-item"<% if (i === 0) { %> open<% } %>>
+            <summary><%= q.question %></summary>
+            <p><%= q.answer %></p>
+          </details>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+<% } -%>
+
 <%- include('cta.html') %>
 
 <%- include('footer.html') %>

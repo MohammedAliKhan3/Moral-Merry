@@ -27,6 +27,7 @@ const TYPES = {
 };
 
 let building = Promise.resolve();
+let rebuildQueue = Promise.resolve();
 const rebuild = () => {
   building = building.then(() => build()).catch((err) => console.error('Build failed:', err.message));
   return building;
@@ -43,7 +44,6 @@ function resolveFile(urlPath) {
 }
 
 const server = http.createServer(async (req, res) => {
-  await building;
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (url.pathname.startsWith('/api/')) {
@@ -60,6 +60,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  await building;
   const file = resolveFile(url.pathname);
   if (!file) {
     res.statusCode = 404;
@@ -73,16 +74,25 @@ const server = http.createServer(async (req, res) => {
 
 rebuild().then(() => {
   server.listen(PORT, () => console.log(`Dev server running at http://localhost:${PORT}`));
-  // Requests that arrive while a change is pending wait for the rebuild.
+  // Page requests that arrive while a change is pending wait for the rebuild.
+  // `pending` is created synchronously on the first change and resolved by the
+  // rebuild that the debounce timer schedules, so a change during a build can't strand it.
   let timer;
-  let release = null;
+  let pending = null;
+  let resolvePending = null;
   const onChange = () => {
-    if (!release) building = building.then(() => new Promise((resolve) => { release = resolve; }));
+    if (!pending) {
+      pending = new Promise((resolve) => { resolvePending = resolve; });
+      const wait = pending;
+      building = building.then(() => wait);
+    }
     clearTimeout(timer);
     timer = setTimeout(() => {
-      const done = release;
-      release = null;
-      build().catch((err) => console.error('Build failed:', err.message)).finally(done);
+      const done = resolvePending;
+      pending = null;
+      resolvePending = null;
+      rebuildQueue = rebuildQueue.then(() => build()).catch((err) => console.error('Build failed:', err.message));
+      rebuildQueue.then(done);
     }, 150);
   };
   fs.watch(path.join(ROOT, 'src'), { recursive: true }, onChange);

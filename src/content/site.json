@@ -1,8 +1,13 @@
 {
   "name": "Moral Merry High School",
   "alternateName": "Moral Merry School",
+  "otherNames": [
+    "Moral Merry School Masab Tank",
+    "Moral Merry High School Hyderabad",
+    "MMS Masab Tank"
+  ],
   "tagline": "Lighted to Lighten",
-  "description": "Moral Merry High School in MG Nagar, Masab Tank, Hyderabad offers values-based education from Nursery to Class 10, with smart classes, sports, yoga and annual science exhibitions. Recognised by the Govt. of Telangana.",
+  "description": "Official website of Moral Merry High School (Moral Merry School), MG Nagar, Masab Tank, Hyderabad. Values-based education from Nursery to Class 10 since 1980, with smart classes, sports, yoga and science exhibitions.",
   "foundedYear": 1980,
   "grades": "Nursery to Class 10",
   "recognition": "Recognised by the Govt. of Telangana",
@@ -23,11 +28,20 @@
   "mapLink": "https://www.google.com/maps/search/?api=1&query=Moral+Merry+High+School%2C+MG+Nagar%2C+Masab+Tank%2C+Hyderabad",
   "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.2124437079583!2d78.44528087581904!3d17.401589502394536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9715eddbce3f%3A0x2d78ddbdf1c2643!2sMORAL%20MERRY%20HIGH%20SCHOOL!5e0!3m2!1sen!2sin!4v1747457300712!5m2!1sen!2sin",
   "phones": [
-    { "label": "Main Office", "number": "+91 91602 15224" },
-    { "label": "Office", "number": "+91 63005 76364" }
+    {
+      "label": "Main Office",
+      "number": "+91 91602 15224"
+    },
+    {
+      "label": "Office",
+      "number": "+91 63005 76364"
+    }
   ],
   "emails": [
-    { "label": "General Inquiries", "address": "oman.akbar@gmail.com" }
+    {
+      "label": "General Inquiries",
+      "address": "oman.akbar@gmail.com"
+    }
   ],
   "hours": {
     "days": "Monday – Saturday",
@@ -35,8 +49,16 @@
     "closes": "15:00",
     "label": "8:00 AM – 3:00 PM"
   },
-  "social": [],
+  "social": [
+    {
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@moralmerryschool"
+    }
+  ],
   "contactFormUrl": "https://submit-form.com/loJzjOWy8",
   "newsletterUrl": "https://gmail.us18.list-manage.com/subscribe/post?u=4a1b2e2f54e9dbfbad3163360&id=3c970c3083&f_id=002eb3e6f0",
-  "googleSiteVerification": ""
+  "googleSiteVerification": "",
+  "profiles": [
+    "https://www.justdial.com/Hyderabad/Moral-Merry-School-Masab-Tank/040PXX40-XX40-180531144423-R4V1_BZDET"
+  ]
 }

@@ -1,23 +1,7 @@
-# Admin panel (moralmerry.in/admin) configuration.
-# Every save commits to GitHub; Vercel then rebuilds and the site updates in about a minute.
-backend:
-  name: github
-  repo: MohammedAliKhan3/Moral-Merry
-  branch: main
-  base_url: https://moralmerry.in
-  auth_endpoint: api/auth
-  commit_messages:
-    update: "Update {{slug}} content via admin"
-    uploadMedia: "Upload {{path}} via admin"
-    deleteMedia: "Delete {{path}} via admin"
-
-site_url: https://moralmerry.in
-display_url: https://moralmerry.in
-logo_url: /icon-192.png
-
-media_folder: src/images
-public_folder: /images
-
+# Admin panel form definitions (moralmerry.in/admin).
+# Each entry is one editable page; its fields describe the JSON file in src/content.
+# Widgets: string, text, number, boolean, select, image, object, list (fields: or field:).
+# The build turns this into dist/admin/schema.json for the admin app.
 collections:
   - name: content
     label: Website Content
@@ -32,6 +16,7 @@ collections:
         fields:
           - { name: name, label: School name, widget: string }
           - { name: alternateName, label: Other name people search for, widget: string }
+          - { name: otherNames, label: More names people use (helps Google), widget: list, field: { name: name, label: Name, widget: string } }
           - { name: tagline, label: Motto, widget: string }
           - { name: description, label: Google description (shown in search results), widget: text, hint: "About 150–160 characters. Mention the area (Masab Tank, Hyderabad)." }
           - { name: foundedYear, label: Year established, widget: number, value_type: int }
@@ -86,6 +71,7 @@ collections:
               - { name: url, label: Link, widget: string }
           - { name: contactFormUrl, label: Contact form address (Formspark), widget: string }
           - { name: newsletterUrl, label: Newsletter address (Mailchimp), widget: string }
+          - { name: profiles, label: Other pages about the school (Justdial etc. – tells Google they are the same school), widget: list, field: { name: url, label: Link, widget: string } }
           - { name: googleSiteVerification, label: Google Search Console verification code, widget: string, required: false }
 
       # ---------------------------------------------------------------- Home
@@ -143,6 +129,18 @@ collections:
                   - { name: title, label: Title, widget: string }
                   - { name: text, label: Text, widget: text }
           - { name: updatesHeading, label: Latest updates heading (shows the first 3 news articles), widget: string }
+          - name: faq
+            label: Frequently asked questions (also shown to Google)
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Questions
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - { name: question, label: Question, widget: string }
+                  - { name: answer, label: Answer, widget: text }
 
       # ---------------------------------------------------------------- About
       - name: about

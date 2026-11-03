@@ -4,13 +4,58 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>Moral Merry – Website Admin</title>
+  <title>Website Admin – Moral Merry</title>
   <link rel="icon" href="/favicon-32.png" type="image/png">
-  <!-- Absolute path: Vercel serves this page at /admin (no trailing slash), where a relative config.yml would miss. -->
-  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <script src="/admin/admin.js" defer></script>
 </head>
 <body>
-  <!-- Content editor. Sign in with a GitHub account that has write access to the repository. -->
-  <script src="https://unpkg.com/@sveltia/cms@0.258.1/dist/sveltia-cms.js"></script>
+  <!-- Login -->
+  <div class="login" id="login" hidden>
+    <form class="login-card" id="login-form">
+      <img src="/icon-192.png" width="72" height="72" alt="">
+      <h1>Website Admin</h1>
+      <p class="muted">Moral Merry High School</p>
+      <label for="username">Username</label>
+      <input id="username" name="username" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button type="submit" class="btn btn-primary">Log in</button>
+      <p class="error" id="login-error" role="alert"></p>
+    </form>
+  </div>
+
+  <!-- Editor -->
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <div class="brand"><img src="/icon-192.png" width="32" height="32" alt=""><span>Website Admin</span></div>
+      <label class="sr-only" for="page-select">Page</label>
+      <select id="page-select"></select>
+      <a class="btn btn-ghost" id="view-link" href="/" target="_blank" rel="noopener">View website ↗</a>
+      <button type="button" class="btn btn-ghost" id="logout-btn">Log out</button>
+    </header>
+    <nav class="sidebar" id="page-list" aria-label="Pages"></nav>
+    <main class="editor" id="editor"></main>
+    <div class="savebar" id="savebar" hidden>
+      <span id="save-status">You have unsaved changes</span>
+      <button type="button" class="btn btn-primary" id="save-btn">Save &amp; Publish</button>
+    </div>
+  </div>
+
+  <!-- Photo picker -->
+  <dialog class="picker" id="picker">
+    <header>
+      <h2>Choose a photo</h2>
+      <button type="button" class="picker-close" aria-label="Close">&times;</button>
+    </header>
+    <label class="btn btn-primary upload-btn">
+      Upload a new photo
+      <input type="file" accept="image/jpeg,image/png,image/webp" hidden>
+    </label>
+    <p class="muted picker-status" role="status"></p>
+    <div class="picker-grid"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
 </body>
 </html>
