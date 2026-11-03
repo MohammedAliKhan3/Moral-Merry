@@ -2,13 +2,16 @@
 // using the school facts from src/content. Works with any OpenAI-compatible chat API:
 //   GROQ_API_KEY  (required)  API key (CHAT_API_KEY also works, for other providers)
 //   CHAT_API_URL  (optional)  defaults to Groq's chat completions endpoint
-//   CHAT_MODEL    (optional)  defaults to Llama 4 Scout on Groq
+//   CHAT_MODEL    (optional)  defaults to GPT-OSS 120B on Groq (Llama 4 Scout was retired)
 const site = require('../src/content/site.json');
 const bot = require('../src/content/chatbot.json');
 const { readJson, send } = require('./_lib/http');
 
 const API_URL = process.env.CHAT_API_URL || 'https://api.groq.com/openai/v1/chat/completions';
-const MODEL = process.env.CHAT_MODEL || 'meta-llama/llama-4-scout-17b-16e-instruct';
+const MODEL = process.env.CHAT_MODEL || 'openai/gpt-oss-120b';
+// GPT-OSS models reason before answering; keep that short so replies are quick
+// and the reasoning does not use up the reply's token budget.
+const REASONING = /gpt-oss/.test(MODEL) ? { reasoning_effort: 'low' } : {};
 const API_KEY = process.env.GROQ_API_KEY || process.env.CHAT_API_KEY;
 const MAX_MESSAGE = 500;
 const MAX_HISTORY = 10;
@@ -74,7 +77,8 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         model: MODEL,
         temperature: 0.5,
-        max_tokens: 500,
+        max_tokens: 1000,
+        ...REASONING,
         messages: [{ role: 'system', content: systemPrompt() }, ...history, { role: 'user', content: message }],
       }),
       signal: AbortSignal.timeout(20000),
