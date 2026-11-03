@@ -1,0 +1,47 @@
+{
+  "seoTitle": "Programs & Activities | Moral Merry High School",
+  "seoDescription": "Daily programs, sports, English fluency, yoga and grade-level learning from Nursery to Class 10 at Moral Merry High School, Masab Tank, Hyderabad.",
+  "hero": {
+    "title": "Our Learning Programs",
+    "subtitle": "Nurturing excellence from Nursery to Class 10"
+  },
+  "daily": {
+    "heading": "Daily Programs",
+    "subtitle": "Structured activities that build discipline and character",
+    "items": [
+      { "icon": "📢", "title": "Morning Assembly", "text": "Daily gatherings with prayers, news and motivational thoughts that build community spirit and public speaking skills." },
+      { "icon": "🧠", "title": "Individual Concentration", "text": "Silent reading and focused study periods that develop deep work habits and independent learning." },
+      { "icon": "📝", "title": "Weekly Assessments", "text": "Regular evaluations to track progress, find learning gaps and give timely feedback." }
+    ]
+  },
+  "special": {
+    "heading": "Special Programs",
+    "subtitle": "Enhancing learning beyond the classroom",
+    "items": [
+      { "icon": "⚽", "title": "Sports", "text": "Physical education with coaching in cricket, football, basketball and athletics to promote fitness and teamwork." },
+      { "icon": "👔", "title": "Best Dressed", "text": "Monthly recognition with cash prizes for students with impeccable uniforms and grooming, fostering pride and discipline." },
+      { "icon": "🗣️", "title": "English Fluency", "text": "Daily conversation practice, with rewards for students who show excellent English communication." }
+    ]
+  },
+  "grades": {
+    "heading": "Grade-Level Focus",
+    "subtitle": "Tailored learning for each stage",
+    "levels": [
+      {
+        "name": "Primary (Nursery–5)",
+        "focus": "Foundation Building",
+        "points": ["Phonics-based language development", "Hands-on maths with manipulatives", "Nature exploration and simple science", "Creative arts and music", "Basic computer literacy"]
+      },
+      {
+        "name": "Middle (6–8)",
+        "focus": "Skill Development",
+        "points": ["Advanced reading comprehension", "Practical mathematics", "Science lab experiments", "Introduction to coding", "Public speaking workshops"]
+      },
+      {
+        "name": "Secondary (9–10)",
+        "focus": "Board Exam Preparation",
+        "points": ["Board exam-focused curriculum", "STEM project-based learning", "Career guidance sessions", "Financial literacy", "Community service projects"]
+      }
+    ]
+  }
+}

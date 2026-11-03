@@ -1,0 +1,36 @@
+{
+  "seoTitle": "About Us | Moral Merry High School, Masab Tank",
+  "seoDescription": "Learn about Moral Merry High School, MG Nagar, Masab Tank, Hyderabad: our vision, mission, principal and teachers. Educating children from Nursery to Class 10 since 1980.",
+  "hero": {
+    "title": "Our Story",
+    "subtitle": "Lighting young minds since 1980"
+  },
+  "mission": {
+    "heading": "Our Mission",
+    "text": "To provide exceptional education that empowers students to become critical thinkers, lifelong learners and responsible citizens, through innovative teaching and a nurturing environment.",
+    "visionHeading": "Our Vision",
+    "vision": "To inspire young minds to achieve their full potential and become leaders who uphold the principles of unity, wisdom, and service to humanity.",
+    "image": "/images/about.jpg"
+  },
+  "stats": [
+    { "value": "90%", "label": "Graduation Rate" },
+    { "value": "20:1", "label": "Student–Teacher Ratio" },
+    { "value": "10+", "label": "Yearly Activities" },
+    { "value": "Soon", "label": "Summer Camps" }
+  ],
+  "principal": {
+    "heading": "Message from the Principal",
+    "name": "Mr. Abdul Akbar Khan",
+    "photo": "/images/principle.jpg",
+    "message": "Education is not just about acquiring knowledge but about shaping character and building the future. At our school, we strive to nurture curious minds, compassionate hearts, and responsible citizens."
+  },
+  "staff": {
+    "heading": "Our Teachers",
+    "subtitle": "Words of inspiration and dedication from our educators",
+    "members": [
+      { "name": "Ayesha Khan Ma'am", "role": "Teacher, B.Ed", "photo": "", "quote": "Education is the most powerful weapon which you can use to change the world." },
+      { "name": "Vazeera Ma'am", "role": "Teacher", "photo": "", "quote": "True learning happens when curiosity meets guidance." },
+      { "name": "Sir Mohammed Ali Khan", "role": "Teacher", "photo": "", "quote": "Discipline and passion are the foundations of academic excellence." }
+    ]
+  }
+}

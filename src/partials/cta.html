@@ -1,0 +1,12 @@
+    <section class="cta-band">
+      <div class="container cta-inner">
+        <div>
+          <h2>Admissions open for <%= site.grades %></h2>
+          <p>Visit us at MG Nagar, Masab Tank, or call the school office today.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-light" href="<%= tel(site.phones[0].number) %>">Call <%= site.phones[0].number %></a>
+          <a class="btn btn-outline-light" href="/contact">Send an Enquiry</a>
+        </div>
+      </div>
+    </section>

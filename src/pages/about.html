@@ -1,0 +1,74 @@
+<% const p = c.about; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'about' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split">
+        <div data-reveal>
+          <h2><%= p.mission.heading %></h2>
+          <p class="lead"><%= p.mission.text %></p>
+          <h2 class="vision-heading"><%= p.mission.visionHeading %></h2>
+          <blockquote class="vision"><%= p.mission.vision %></blockquote>
+        </div>
+        <div class="split-media" data-reveal>
+          <%- img(p.mission.image, { alt: site.name + ' students', sizes: '(min-width: 900px) 45vw, 100vw' }) %>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-band">
+      <ul class="container stat-grid">
+<% p.stats.forEach((s) => { -%>
+        <li data-reveal><span class="stat-value"><%= s.value %></span><span class="stat-label"><%= s.label %></span></li>
+<% }) -%>
+      </ul>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container principal" data-reveal>
+<% if (p.principal.photo) { -%>
+        <%- img(p.principal.photo, { alt: p.principal.name + ', Principal', cls: 'principal-photo', sizes: '320px' }) %>
+<% } -%>
+        <div class="principal-message">
+          <h2><%= p.principal.heading %></h2>
+          <%- paragraphs(p.principal.message) %>
+          <p class="principal-name">– <%= p.principal.name %>, Principal</p>
+        </div>
+      </div>
+    </section>
+
+<% if (p.staff.members.length) { -%>
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.staff.heading %></h2>
+          <p><%= p.staff.subtitle %></p>
+        </div>
+        <div class="card-grid">
+<% p.staff.members.forEach((m) => { -%>
+          <figure class="card staff-card" data-reveal>
+<% if (m.photo) { -%>
+            <%- img(m.photo, { alt: m.name, cls: 'staff-photo', sizes: '96px' }) %>
+<% } else { -%>
+            <span class="staff-initials" aria-hidden="true"><%= m.name.replace(/^(Sir|Mr\.?|Mrs\.?|Ms\.?|Dr\.?)\s+/i, '').charAt(0) %></span>
+<% } -%>
+<% if (m.quote) { -%>
+            <blockquote>“<%= m.quote %>”</blockquote>
+<% } -%>
+            <figcaption><strong><%= m.name %></strong><% if (m.role) { %><span><%= m.role %></span><% } %></figcaption>
+          </figure>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+<% } -%>
+
+<%- include('cta.html') %>
+
+<%- include('footer.html') %>

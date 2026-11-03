@@ -1,0 +1,41 @@
+{
+  "seoTitle": "Class 9 & 10 Syllabus and Free Textbooks (Telangana SSC) | Moral Merry High School",
+  "seoDescription": "Class 9 and Class 10 Telangana SSC syllabus with free official SCERT Telangana e-textbooks (English medium, 2026–27): Maths, Physical Science, Biology, Social Studies, English, Telugu and Hindi.",
+  "hero": {
+    "title": "Class Syllabus",
+    "subtitle": "Telangana State Board (SSC) syllabus with free official textbooks for Class 9 and Class 10"
+  },
+  "intro": "Open the official English-medium e-textbooks published free by SCERT Telangana for the 2026–27 academic year. The books open on the SCERT website or Google Drive, where they can be read online or downloaded as PDF.",
+  "source": {
+    "label": "All SCERT Telangana e-textbooks (other classes and mediums)",
+    "url": "https://scert.telangana.gov.in/Displaycontent.aspx?encry=ammkNW4/gx+NeApstGPX+A=="
+  },
+  "classes": [
+    {
+      "name": "Class 10",
+      "id": "class-10",
+      "subjects": [
+        { "icon": "➗", "name": "Mathematics", "topics": "Algebra, geometry, trigonometry, statistics and probability.", "url": "https://drive.google.com/file/d/126WOtLyUuhrUgAAjhuoE65-YdUzdwhaZ/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "⚛️", "name": "Physical Science", "topics": "Physics and chemistry: light, electricity, magnetism and chemical reactions.", "url": "https://scert.telangana.gov.in/pdf/publication/ebooks/x%20physics%20em%202026-27.pdf", "note": "PDF · 18 MB" },
+        { "icon": "🧬", "name": "Biological Science", "topics": "Nutrition, respiration, transport, reproduction, heredity and our environment.", "url": "https://scert.telangana.gov.in/pdf/publication/ebooks/x%20biology%20em%20inner%202026-27.pdf", "note": "PDF · 22 MB" },
+        { "icon": "🌍", "name": "Social Studies", "topics": "Geography, history, political science and economics.", "url": "https://drive.google.com/file/d/1VEb5YS5E5493ESRMmuOrgYjmEdMfrrHV/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📘", "name": "English", "topics": "Reader: prose, poetry, grammar and writing skills.", "url": "https://drive.google.com/file/d/1Nenwz1PBK9b4oCIAkKN1cvpYdFsG4LYS/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📗", "name": "Telugu", "topics": "State language, for students of other-than-Telugu medium.", "url": "https://drive.google.com/file/d/1-PqYijlo5PqTVJnPsP2mIingqancjNET/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📙", "name": "Hindi", "topics": "Second language: prose, poetry and grammar.", "url": "https://drive.google.com/file/d/1nxNnglSi-W1RhvzSXjynelNPpW5Ad1VV/view?usp=sharing", "note": "Google Drive" }
+      ]
+    },
+    {
+      "name": "Class 9",
+      "id": "class-9",
+      "subjects": [
+        { "icon": "➗", "name": "Mathematics", "topics": "Number systems, algebra, geometry, mensuration and statistics.", "url": "https://drive.google.com/file/d/1SmmEqWMUieFqGpHoTAQO3-ERhqj4iLMF/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "⚛️", "name": "Physical Science", "topics": "Motion, force, energy, sound, matter and atoms.", "url": "https://scert.telangana.gov.in/pdf/publication/ebooks/ix%20physics%20em%202026-27.pdf", "note": "PDF · 7 MB" },
+        { "icon": "🧬", "name": "Biological Science", "topics": "Cells, tissues, plant and animal life, diseases and our environment.", "url": "https://scert.telangana.gov.in/pdf/publication/ebooks/ix%20biology%20em%20inner%202026-27.pdf", "note": "PDF · 22 MB" },
+        { "icon": "🌍", "name": "Social Studies", "topics": "Geography, history, political science and economics.", "url": "https://drive.google.com/file/d/1YzvVbYqQz3495Zpt9aJ9YKRQrTVG6Huy/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📘", "name": "English", "topics": "Reader: prose, poetry, grammar and writing skills.", "url": "https://drive.google.com/file/d/16dzJOmSx6YXVg6op5rQTW-32BnSAdow5/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📗", "name": "Telugu", "topics": "State language, for students of other-than-Telugu medium.", "url": "https://drive.google.com/file/d/1v0MXyNc-_nXdjvlFtCa1hF6-HMk6ERiD/view?usp=sharing", "note": "Google Drive" },
+        { "icon": "📙", "name": "Hindi", "topics": "Second language: prose, poetry and grammar.", "url": "https://drive.google.com/file/d/13Kz1KMwApdZ3l0_75hyJPyGua9vP9aC0/view?usp=sharing", "note": "Google Drive" }
+      ]
+    }
+  ]
+}

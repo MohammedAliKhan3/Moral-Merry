@@ -1,0 +1,64 @@
+<% const p = c.news; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'news' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.listHeading %></h2>
+          <p><%= p.listSubtitle %></p>
+        </div>
+        <div class="card-grid">
+<% p.articles.forEach((a) => { -%>
+          <article class="card article-card" data-reveal>
+            <div class="article-media">
+              <%- img(a.image, { alt: a.title, sizes: '(min-width: 1000px) 33vw, 100vw' }) %>
+<% if (a.category) { -%>
+              <span class="article-category"><%= a.category %></span>
+<% } -%>
+            </div>
+            <div class="article-body">
+<% if (a.date) { -%>
+              <p class="news-date"><%= a.date %></p>
+<% } -%>
+              <h3><%= a.title %></h3>
+              <p><%= a.excerpt %></p>
+<% if (a.body) { -%>
+              <a class="text-link" href="/news/<%= a.slug %>">Read full story <span aria-hidden="true">→</span></a>
+<% } -%>
+            </div>
+          </article>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="newsletter-card" data-reveal>
+          <div class="newsletter-text">
+            <h2><%= p.newsletter.heading %></h2>
+            <p><%= p.newsletter.text %></p>
+            <form class="newsletter-form" action="<%= site.newsletterUrl %>" method="post" novalidate>
+              <label class="sr-only" for="news-email">Email address</label>
+              <input id="news-email" type="email" name="EMAIL" placeholder="Your email address" autocomplete="email" required>
+              <button type="submit" class="btn btn-accent">Subscribe</button>
+              <p class="form-status" role="status"></p>
+            </form>
+          </div>
+<% if (p.newsletter.image) { -%>
+          <div class="newsletter-media">
+            <%- img(p.newsletter.image, { alt: '', sizes: '(min-width: 900px) 40vw, 100vw' }) %>
+          </div>
+<% } -%>
+        </div>
+      </div>
+    </section>
+
+<%- include('footer.html') %>

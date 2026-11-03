@@ -1,0 +1,35 @@
+{
+  "seoTitle": "Admissions Open | Moral Merry High School, Hyderabad",
+  "seoDescription": "Admissions open at Moral Merry High School, MG Nagar, Masab Tank, Hyderabad for Nursery to Class 10. Simple 4-step process and affordable fees.",
+  "hero": {
+    "title": "Join Our Community",
+    "subtitle": "Admissions open for Nursery to Class 10"
+  },
+  "process": {
+    "heading": "Admissions Process",
+    "subtitle": "Our simple 4-step process",
+    "steps": [
+      { "title": "Application", "text": "Fill in the application form at the school office, or send us an enquiry online." },
+      { "title": "Assessment", "text": "A simple, age-appropriate evaluation of your child's learning level." },
+      { "title": "Interaction", "text": "A friendly meeting between the family and our principal." },
+      { "title": "Admission", "text": "Receive the decision and complete the enrolment formalities." }
+    ]
+  },
+  "dates": {
+    "heading": "Admission Dates",
+    "subtitle": "Seats are limited, so apply early",
+    "items": [
+      { "term": "Academic Year 2027–28", "date": "Contact the office for dates", "status": "Open" }
+    ]
+  },
+  "fees": {
+    "heading": "Fee Structure",
+    "subtitle": "Quality education at an affordable cost",
+    "note": "Per academic year",
+    "items": [
+      { "grade": "Nursery – Class 5", "amount": "₹10,000" },
+      { "grade": "Class 6 – 8", "amount": "₹11,000" },
+      { "grade": "Class 9 – 10", "amount": "₹12,000" }
+    ]
+  }
+}

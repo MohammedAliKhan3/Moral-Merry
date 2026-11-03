@@ -1,0 +1,82 @@
+<%
+  const fullTitle = locals.title || site.name;
+  const desc = locals.description || site.description;
+  const canonical = absUrl(page.path);
+  const nav = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/admissions', label: 'Admissions' },
+    { path: '/programs', label: 'Programs' },
+    { path: '/syllabus', label: 'Syllabus' },
+    { path: '/news', label: 'News' },
+    { path: '/gallery', label: 'Gallery' },
+    { path: '/contact', label: 'Contact' },
+  ];
+  const isActive = (p) => p === '/' ? page.path === '/' : page.path === p || page.path.startsWith(p + '/');
+-%>
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= fullTitle %></title>
+  <meta name="description" content="<%= desc %>">
+<% if (locals.noindex) { -%>
+  <meta name="robots" content="noindex">
+<% } else { -%>
+  <link rel="canonical" href="<%= canonical %>">
+<% } -%>
+  <meta name="theme-color" content="#13005a">
+  <meta name="geo.region" content="IN-TG">
+  <meta name="geo.placename" content="<%= site.address.city %>">
+  <meta name="geo.position" content="<%= site.geo.lat %>;<%= site.geo.lng %>">
+<% if (site.googleSiteVerification) { -%>
+  <meta name="google-site-verification" content="<%= site.googleSiteVerification %>">
+<% } -%>
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="<%= site.name %>">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:title" content="<%= fullTitle %>">
+  <meta property="og:description" content="<%= desc %>">
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= site.url %>/images/share.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="<%= asset('/css/site.css') %>">
+<% if (locals.css) { -%>
+  <link rel="stylesheet" href="<%= asset('/css/' + css + '.css') %>">
+<% } -%>
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="<%= asset('/js/main.js') %>" defer></script>
+  <script type="application/ld+json"><%- json(schoolJsonLd) %></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="<%= site.name %> – Home">
+      <img class="brand-logo" src="/images/logo-96.webp" width="44" height="44" alt="">
+      <span class="brand-name">Moral Merry <span>High School</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul>
+<% nav.forEach((item) => { -%>
+        <li><a href="<%= item.path %>"<% if (isActive(item.path)) { %> aria-current="page"<% } %>><%= item.label %></a></li>
+<% }) -%>
+      </ul>
+      <a class="btn btn-primary nav-cta" href="/admissions">Apply Now</a>
+    </nav>
+  </header>
+  <main id="main">
