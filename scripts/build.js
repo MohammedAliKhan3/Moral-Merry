@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const ejs = require('ejs');
+const yaml = require('js-yaml');
 const { processImages, makeBrandImages } = require('./images');
 
 const ROOT = path.join(__dirname, '..');
@@ -69,6 +70,20 @@ function buildAssets() {
   return assets;
 }
 
+// Admin app: static files, the form definitions as JSON, and a map of every photo
+// to a small thumbnail so the photo picker loads quickly.
+function buildAdmin(images) {
+  const dir = path.join(SRC, 'admin');
+  for (const f of fs.readdirSync(dir)) {
+    if (f !== 'schema.yml') writeFile(`admin/${f}`, fs.readFileSync(path.join(dir, f)));
+  }
+  const schema = yaml.load(fs.readFileSync(path.join(dir, 'schema.yml'), 'utf8'));
+  writeFile('admin/schema.json', JSON.stringify(schema.collections[0].files));
+  const media = {};
+  for (const [src, i] of Object.entries(images)) media[src] = i.variants[0].url;
+  writeFile('admin/media.json', JSON.stringify(media));
+}
+
 function copyDir(from, to) {
   if (!fs.existsSync(from)) return;
   fs.cpSync(from, to, { recursive: true });
@@ -120,53 +135,115 @@ function makeHelpers(images, assets, site) {
   return { img, imgUrl, asset, absUrl, paragraphs, tel, json, escapeHtml };
 }
 
-function schoolJsonLd(site) {
+// Structured data for one page: the school, the website, this page, breadcrumbs
+// (inner pages) and the FAQ (home page). Tells Google that moralmerry.in is the
+// school's official site and links it to the school's other profiles.
+function pageJsonLd(site, content, page, title, description) {
   const a = site.address;
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'School',
-        '@id': `${site.url}/#school`,
-        name: site.name,
-        alternateName: site.alternateName,
-        slogan: site.tagline,
-        description: site.description,
-        url: `${site.url}/`,
-        logo: `${site.url}/icon-512.png`,
-        image: `${site.url}/images/share.jpg`,
-        foundingDate: String(site.foundedYear),
-        telephone: site.phones.map((p) => p.number),
-        email: site.emails.map((e) => e.address),
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: a.street,
-          addressLocality: a.city,
-          addressRegion: a.region,
-          postalCode: a.postalCode,
-          addressCountry: a.country,
-        },
-        geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
-        hasMap: site.mapLink,
-        openingHoursSpecification: {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-          opens: site.hours.opens,
-          closes: site.hours.closes,
-        },
-        sameAs: site.social.map((s) => s.url).filter(Boolean),
+  const names = [site.alternateName, ...(site.otherNames || [])].filter(Boolean);
+  const pageUrl = site.url + (page.path === '/' ? '/' : page.path);
+  const graph = [
+    {
+      '@type': 'School',
+      '@id': `${site.url}/#school`,
+      name: site.name,
+      alternateName: names,
+      slogan: site.tagline,
+      description: site.description,
+      url: `${site.url}/`,
+      logo: `${site.url}/icon-512.png`,
+      image: `${site.url}/images/share.jpg`,
+      foundingDate: String(site.foundedYear),
+      telephone: site.phones.map((p) => p.number),
+      email: site.emails.map((e) => e.address),
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: a.street,
+        addressLocality: a.city,
+        addressRegion: a.region,
+        postalCode: a.postalCode,
+        addressCountry: a.country,
       },
-      {
-        '@type': 'WebSite',
-        '@id': `${site.url}/#website`,
-        name: site.name,
-        alternateName: site.alternateName,
-        url: `${site.url}/`,
-        publisher: { '@id': `${site.url}/#school` },
-        inLanguage: 'en-IN',
+      geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+      hasMap: site.mapLink,
+      areaServed: { '@type': 'City', name: a.city },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: site.hours.opens,
+        closes: site.hours.closes,
       },
-    ],
-  };
+      employee: site.principal ? { '@type': 'Person', name: site.principal.replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/, ''), jobTitle: 'Principal' } : undefined,
+      sameAs: [...site.social.map((s) => s.url), ...(site.profiles || [])].filter(Boolean),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      name: site.name,
+      alternateName: names,
+      url: `${site.url}/`,
+      publisher: { '@id': `${site.url}/#school` },
+      inLanguage: 'en-IN',
+    },
+    {
+      '@type': page.path === '/about' ? 'AboutPage' : page.path === '/contact' ? 'ContactPage' : 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: title,
+      description,
+      isPartOf: { '@id': `${site.url}/#website` },
+      about: { '@id': `${site.url}/#school` },
+      inLanguage: 'en-IN',
+    },
+  ];
+  if (page.path !== '/') {
+    const crumbs = [{ name: 'Home', path: '/' }];
+    if (page.article) crumbs.push({ name: 'News', path: '/news' });
+    crumbs.push({ name: (title || '').split('|')[0].trim(), path: page.path });
+    graph.push({
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: site.url + (c.path === '/' ? '/' : c.path) })),
+    });
+  }
+  const faq = page.path === '/' && content.home.faq;
+  if (faq && faq.items.length) {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${site.url}/#faq`,
+      mainEntity: faq.items.map((q) => ({ '@type': 'Question', name: q.question, acceptedAnswer: { '@type': 'Answer', text: q.answer } })),
+    });
+  }
+  return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+// Plain-text fact sheet for AI assistants and answer engines (llmstxt.org).
+function llmsTxt(content, pages, absUrl) {
+  const { site } = content;
+  const a = site.address;
+  const pageName = (p) => (p.path === '/' ? 'Home' : p.path === '/ai-hub' ? 'AI Hub'
+    : p.path.slice(1).replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()));
+  return [
+    `# ${site.name}`,
+    '',
+    `> ${site.description}`,
+    '',
+    `This is the official website of ${site.name} (also known as ${[site.alternateName, ...(site.otherNames || [])].join(', ')}).`,
+    '',
+    '## Key facts',
+    `- Address: ${a.street}, ${a.city}, ${a.region} ${a.postalCode}, India`,
+    `- Phone: ${site.phones.map((p) => p.number).join(', ')}`,
+    `- Email: ${site.emails.map((e) => e.address).join(', ')}`,
+    `- School hours: ${site.hours.days}, ${site.hours.label}`,
+    `- Classes: ${site.grades} (Telangana State Board / SSC)`,
+    `- Established: ${site.foundedYear}`,
+    `- Principal: ${site.principal}`,
+    `- Motto: ${site.tagline}`,
+    `- ${site.recognition}`,
+    '',
+    '## Pages',
+    ...pages.map((p) => `- [${pageName(p)}](${absUrl(p.path)})`),
+    '',
+  ].join('\n');
 }
 
 async function build() {
@@ -182,10 +259,11 @@ async function build() {
   await makeBrandImages(path.join(SRC, site.logo.replace(/^\//, '')), shareFile, DIST);
   const assets = buildAssets();
   copyDir(path.join(SRC, 'static'), DIST);
-  copyDir(path.join(SRC, 'admin'), path.join(DIST, 'admin'));
+  buildAdmin(images);
 
   const helpers = makeHelpers(images, assets, site);
-  const base = { c: content, site, schoolJsonLd: schoolJsonLd(site), year: new Date().getFullYear(), ...helpers };
+  const jsonLdFor = (page, title, description) => pageJsonLd(site, content, page, title, description);
+  const base = { c: content, site, jsonLdFor, year: new Date().getFullYear(), ...helpers };
   const render = (tpl, page) => ejs.renderFile(path.join(SRC, 'pages', tpl),
     { ...base, page }, { views: [path.join(SRC, 'partials')], async: false });
 
@@ -199,11 +277,24 @@ async function build() {
     writeFile(page.path === '/' ? 'index.html' : `${page.path.slice(1)}.html`, html);
   }
 
+  // Sitemap, including the school's photos so they can appear in Google Images.
   const today = new Date().toISOString().slice(0, 10);
-  const urls = pages.filter((p) => !p.noSitemap).map((p) =>
-    `  <url><loc>${helpers.absUrl(p.path)}</loc><lastmod>${today}</lastmod></url>`);
-  writeFile('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
-  writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
+  const pageImages = {
+    '/': [content.home.hero.image, ...content.home.campus.items.map((i) => i.image)],
+    '/about': [content.about.mission.image, content.about.principal.photo],
+    '/gallery': content.gallery.images.map((i) => i.src),
+  };
+  const xmlEscape = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const urls = pages.filter((p) => !p.noSitemap).map((p) => {
+    const imgs = (pageImages[p.path] || []).filter((src) => images[src])
+      .map((src) => `\n    <image:image><image:loc>${xmlEscape(site.url + helpers.imgUrl(src, 1600))}</image:loc></image:image>`).join('');
+    return `  <url><loc>${helpers.absUrl(p.path)}</loc><lastmod>${today}</lastmod>${imgs}</url>`;
+  });
+  writeFile('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n'
+    + '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+    + `${urls.join('\n')}\n</urlset>\n`);
+  writeFile('robots.txt', `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${site.url}/sitemap.xml\n`);
+  writeFile('llms.txt', llmsTxt(content, pages.filter((p) => !p.noSitemap), helpers.absUrl));
 
   console.log(`Built ${pages.length} pages and ${Object.keys(images).length} images in ${Date.now() - started} ms`);
 }

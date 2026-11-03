@@ -1,42 +1,130 @@
 {
-  "seoTitle": "Moral Merry High School | School in Masab Tank, Hyderabad",
+  "seoTitle": "Moral Merry High School – Official Website | Masab Tank, Hyderabad",
   "hero": {
     "title": "Moral Merry High School",
     "subtitle": "Lighted to Lighten",
     "text": "Values-based education from Nursery to Class 10 in the heart of Masab Tank, Hyderabad.",
     "image": "/images/kidsPlaying1.jpg",
-    "primaryButton": { "label": "Apply Now", "link": "/admissions" },
-    "secondaryButton": { "label": "Explore Programs", "link": "/programs" }
+    "primaryButton": {
+      "label": "Apply Now",
+      "link": "/admissions"
+    },
+    "secondaryButton": {
+      "label": "Explore Programs",
+      "link": "/programs"
+    }
   },
   "journey": {
     "heading": "Our Journey",
     "text": "Since 1980, Moral Merry High School has grown from a small community school into a trusted name in Masab Tank, Hyderabad. Our commitment to moral values, discipline and academic excellence has stayed unwavering through decades of growth.",
     "stats": [
-      { "value": "45+", "label": "Years of Excellence" },
-      { "value": "90%", "label": "Graduation Rate" },
-      { "value": "10+", "label": "Activities Every Year" }
+      {
+        "value": "45+",
+        "label": "Years of Excellence"
+      },
+      {
+        "value": "90%",
+        "label": "Graduation Rate"
+      },
+      {
+        "value": "10+",
+        "label": "Activities Every Year"
+      }
     ]
   },
   "campus": {
     "heading": "Life at Moral Merry",
     "subtitle": "Learning, celebrating and growing together every day",
     "items": [
-      { "image": "/images/SirSpeech.jpg", "caption": "Engaging classroom sessions" },
-      { "image": "/images/yoga.jpg", "caption": "Yoga and meditation for a calm, focused mind" },
-      { "image": "/images/treeDress.jpg", "caption": "Celebrating nature on Green Day" },
-      { "image": "/images/StudentMarch.jpg", "caption": "Independence Day rally" }
+      {
+        "image": "/images/SirSpeech.jpg",
+        "caption": "Engaging classroom sessions"
+      },
+      {
+        "image": "/images/yoga.jpg",
+        "caption": "Yoga and meditation for a calm, focused mind"
+      },
+      {
+        "image": "/images/treeDress.jpg",
+        "caption": "Celebrating nature on Green Day"
+      },
+      {
+        "image": "/images/StudentMarch.jpg",
+        "caption": "Independence Day rally"
+      }
     ]
   },
   "features": {
     "heading": "Why Choose Moral Merry",
     "items": [
-      { "icon": "📚", "title": "Academic Excellence", "text": "A balanced curriculum from Nursery to Class 10, with smart classes and weekly assessments." },
-      { "icon": "⚽", "title": "Sports & Fitness", "text": "Coaching in cricket, football, basketball and athletics, plus an annual sports meet." },
-      { "icon": "🎭", "title": "Arts & Culture", "text": "Music, dance, drama, art and fancy-dress events that build confidence." },
-      { "icon": "🧘", "title": "Yoga & Meditation", "text": "Regular yoga and meditation sessions help students stay calm and focused." },
-      { "icon": "🗣️", "title": "English Fluency", "text": "Daily speaking practice, with awards for excellent English communication." },
-      { "icon": "🔬", "title": "Science Exhibitions", "text": "An annual science fair where students build and present their own projects." }
+      {
+        "icon": "📚",
+        "title": "Academic Excellence",
+        "text": "A balanced curriculum from Nursery to Class 10, with smart classes and weekly assessments."
+      },
+      {
+        "icon": "⚽",
+        "title": "Sports & Fitness",
+        "text": "Coaching in cricket, football, basketball and athletics, plus an annual sports meet."
+      },
+      {
+        "icon": "🎭",
+        "title": "Arts & Culture",
+        "text": "Music, dance, drama, art and fancy-dress events that build confidence."
+      },
+      {
+        "icon": "🧘",
+        "title": "Yoga & Meditation",
+        "text": "Regular yoga and meditation sessions help students stay calm and focused."
+      },
+      {
+        "icon": "🗣️",
+        "title": "English Fluency",
+        "text": "Daily speaking practice, with awards for excellent English communication."
+      },
+      {
+        "icon": "🔬",
+        "title": "Science Exhibitions",
+        "text": "An annual science fair where students build and present their own projects."
+      }
     ]
   },
-  "updatesHeading": "Latest Updates"
+  "updatesHeading": "Latest Updates",
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "Is this the official website of Moral Merry School?",
+        "answer": "Yes. moralmerry.in is the official website of Moral Merry High School, also known as Moral Merry School, in MG Nagar, Owaisi Pura, Masab Tank, Hyderabad. Information here comes directly from the school."
+      },
+      {
+        "question": "Where is Moral Merry High School located?",
+        "answer": "10-4-13/11/A/5/1, MG Nagar, Owaisi Pura, Masab Tank, Hyderabad, Telangana 500028. Use the Contact page for directions on Google Maps."
+      },
+      {
+        "question": "Which classes does the school offer?",
+        "answer": "Nursery to Class 10, following the Telangana State Board (SSC) syllabus. The school is recognised by the Government of Telangana."
+      },
+      {
+        "question": "What are the school timings?",
+        "answer": "Monday to Saturday, 8:00 AM to 3:00 PM."
+      },
+      {
+        "question": "When was Moral Merry School established?",
+        "answer": "The school was established in 1980 and has served families in Masab Tank and nearby areas of Hyderabad for over 45 years."
+      },
+      {
+        "question": "How can I get admission?",
+        "answer": "Admissions are open for Nursery to Class 10. Visit the school office, call +91 91602 15224, or send an enquiry from the Contact page."
+      },
+      {
+        "question": "What are the school fees?",
+        "answer": "Fees are kept affordable. See the fee structure on the Admissions page, or contact the school office for the latest fees."
+      },
+      {
+        "question": "Who is the principal?",
+        "answer": "Mr. Abdul Akbar Khan is the principal of Moral Merry High School."
+      }
+    ]
+  }
 }

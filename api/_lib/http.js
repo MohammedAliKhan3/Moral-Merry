@@ -1,12 +1,12 @@
 // Small helpers so the functions run the same on Vercel and on the local dev server.
-async function readJson(req) {
+async function readJson(req, limit = 64 * 1024) {
   if (req.body && typeof req.body === 'object') return req.body;
   if (typeof req.body === 'string') return JSON.parse(req.body || '{}');
   const chunks = [];
   let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 64 * 1024) throw new Error('Body too large');
+    if (size > limit) throw new Error('Body too large');
     chunks.push(chunk);
   }
   return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
