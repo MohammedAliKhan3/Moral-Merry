@@ -6,6 +6,8 @@
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Moral Merry – Website Admin</title>
   <link rel="icon" href="/favicon-32.png" type="image/png">
+  <!-- Absolute path: Vercel serves this page at /admin (no trailing slash), where a relative config.yml would miss. -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
 </head>
 <body>
   <!-- Content editor. Sign in with a GitHub account that has write access to the repository. -->
