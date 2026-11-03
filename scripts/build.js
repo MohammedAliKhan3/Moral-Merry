@@ -37,7 +37,7 @@ function loadContent() {
   for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.json'))) {
     content[path.basename(f, '.json')] = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
   }
-  content.site.url = (process.env.SITE_URL || 'https://moralmerry.in').replace(/\/$/, '');
+  content.site.url = (process.env.SITE_URL || 'https://www.moralmerry.in').replace(/\/$/, '');
   return content;
 }
 

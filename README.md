@@ -1,6 +1,6 @@
 # Moral Merry High School – Website
 
-Official website of Moral Merry High School, MG Nagar, Masab Tank, Hyderabad — **https://moralmerry.in**
+Official website of Moral Merry High School, MG Nagar, Masab Tank, Hyderabad — **https://www.moralmerry.in**
 
 A static site: pages are built ahead of time and served from Vercel's CDN, so there is no server to "wake up" (no Render-style cold start). Only the chatbot / AI Hub and the admin panel run as small serverless functions.
 
@@ -70,10 +70,10 @@ After adding or changing a variable, redeploy (Deployments → ⋯ → Redeploy)
 
 The site already does its part: "Official website" in titles and footer, School + FAQ structured data with address, phones, hours, founding year, principal and every name people use, links (`sameAs`) to the YouTube channel and Justdial listing, a sitemap that includes photos, and `llms.txt` for AI assistants. What remains has to be done in Google and on other sites:
 
-1. **Google Search Console** (search.google.com/search-console): add a *Domain* property `moralmerry.in`, verify with the TXT record at GoDaddy, submit `https://moralmerry.in/sitemap.xml`, then *URL inspection → Request indexing* for the home page.
-2. **Google Business Profile** (the "MORAL MERRY HIGH SCHOOL" panel in search): click **Own this business?** and verify. Then set Website `https://moralmerry.in`, category **High school**, hours Monday–Saturday 8:00 AM – 3:00 PM (it shows "Open 24 hours"), and add photos. This is the single biggest factor for local searches.
+1. **Google Search Console** (search.google.com/search-console): add a *Domain* property `moralmerry.in`, verify with the TXT record at GoDaddy, submit `https://www.moralmerry.in/sitemap.xml`, then *URL inspection → Request indexing* for the home page.
+2. **Google Business Profile** (the "MORAL MERRY HIGH SCHOOL" panel in search): click **Own this business?** and verify. Then set Website `https://www.moralmerry.in`, category **High school**, hours Monday–Saturday 8:00 AM – 3:00 PM (it shows "Open 24 hours"), and add photos. This is the single biggest factor for local searches.
 3. **Bing Webmaster Tools** (bing.com/webmasters): import from Search Console. Bing powers ChatGPT search and Copilot.
-4. **YouTube channel** @moralmerryschool: add `https://moralmerry.in` to the channel's links and to video descriptions.
+4. **YouTube channel** @moralmerryschool: add `https://www.moralmerry.in` to the channel's links and to video descriptions.
 5. **Correct the listings with old or wrong data** (each should show the same name, address and phone as the website, and link to it):
    - Justdial — claim the listing, add the website.
    - Mappls / MapmyIndia — old address "9/4/86/60 and 61, Sanjay Gandhi Nagar"; suggest an edit.
