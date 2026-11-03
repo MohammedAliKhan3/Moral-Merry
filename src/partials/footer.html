@@ -40,6 +40,7 @@
           <li><a href="/syllabus">Syllabus &amp; Textbooks</a></li>
           <li><a href="/news">News &amp; Events</a></li>
           <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/ai-hub">AI Hub</a></li>
           <li><a href="/contact">Contact Us</a></li>
         </ul>
       </nav>
@@ -77,7 +78,10 @@
   </footer>
 
 <% if (c.chatbot.enabled) { -%>
+<% if (!locals.hideChatWidget) { -%>
 <%- include('chatbot.html') %>
+<% } -%>
+  <script src="<%= asset('/js/chatbot.js') %>" defer></script>
 <% } -%>
 <% (locals.scripts || []).forEach((s) => { -%>
   <script src="<%= asset('/js/' + s + '.js') %>" defer></script>

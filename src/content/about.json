@@ -24,6 +24,19 @@
     "photo": "/images/principle.jpg",
     "message": "Education is not just about acquiring knowledge but about shaping character and building the future. At our school, we strive to nurture curious minds, compassionate hearts, and responsible citizens."
   },
+  "timeline": {
+    "heading": "Our Journey: A Timeline of Excellence",
+    "subtitle": "Milestones that have shaped Moral Merry School",
+    "events": [
+      { "year": "1980", "title": "Foundation & Vision", "text": "Moral Merry School was founded with a vision to provide value-based education, focusing on holistic child development." },
+      { "year": "1995", "title": "Expanding Horizons", "text": "Middle school classes were introduced, widening our curriculum for older students." },
+      { "year": "2005", "title": "Academic Achievements", "text": "Our first batch of Class X students achieved outstanding results, setting a new benchmark for academic excellence." },
+      { "year": "2010", "title": "Sports & Arts", "text": "New sports facilities and arts activities were added, with a stronger focus on extracurricular development." },
+      { "year": "2015", "title": "Community Outreach", "text": "Community service programmes were launched, fostering social responsibility among our students." },
+      { "year": "2020", "title": "Digital Transformation", "text": "E-learning platforms and smart classrooms were introduced to modernise teaching." },
+      { "year": "2024", "title": "Celebrating Diversity", "text": "New cultural programmes promote unity in diversity and global awareness." }
+    ]
+  },
   "staff": {
     "heading": "Our Teachers",
     "subtitle": "Words of inspiration and dedication from our educators",

@@ -2,14 +2,14 @@
 
 Official website of Moral Merry High School, MG Nagar, Masab Tank, Hyderabad — **https://moralmerry.in**
 
-A static site: pages are built ahead of time and served from Vercel's CDN, so there is no server to "wake up" (no Render-style cold start). Only the chatbot and the admin login run as small serverless functions.
+A static site: pages are built ahead of time and served from Vercel's CDN, so there is no server to "wake up" (no Render-style cold start). Only the chatbot / AI Hub and the admin login run as small serverless functions.
 
 ## Folder layout
 
 ```
 src/
   content/    All text, photos lists, fees, staff, news … (JSON). Edited through /admin.
-  pages/      One HTML template per page (index, about, admissions, programs, news, gallery, contact, article, 404)
+  pages/      One HTML template per page (index, about, admissions, programs, syllabus, news, gallery, contact, ai-hub, article, 404)
   partials/   Shared pieces: header (with SEO tags), footer, chatbot, call-to-action band
   css/        base / header / footer / chatbot (bundled into site.css) + one file per page
   js/         main (menu, animations, newsletter), chatbot, programs (tabs), gallery (lightbox, 360°), contact (form)
@@ -44,9 +44,9 @@ Every save creates a commit on `main`; Vercel rebuilds and the change is live in
 ## Launch checklist
 
 ### 1. Deploy on Vercel
-1. Sign in at vercel.com with the GitHub account → **Add New → Project** → import `MohammedAliKhan3/Moral-Merry-School`. Settings are read from `vercel.json`; nothing to change.
+1. Sign in at vercel.com with the GitHub account → **Add New → Project** → import `MohammedAliKhan3/Moral-Merry`. Settings are read from `vercel.json`; nothing to change.
 2. **Settings → Environment Variables**:
-   - `CHAT_API_KEY` — key for the chatbot's AI provider (Together AI by default; set `CHAT_API_URL` and `CHAT_MODEL` to use another OpenAI-compatible provider).
+   - `GROQ_API_KEY` — the chatbot / AI Hub key. Copy it from the Render service's Environment settings (the live site already uses Groq).
    - `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` — from step 3.
 3. Redeploy after adding variables.
 
@@ -55,7 +55,7 @@ Every save creates a commit on `main`; Vercel rebuilds and the change is live in
 2. At the domain registrar, replace the old Render records with the ones Vercel shows. Typically:
    - `A` record, host `@` → `76.76.21.21`
    - `CNAME` record, host `www` → `cname.vercel-dns.com`
-3. Wait for Vercel to show the domain as valid (SSL is automatic), then remove the domain from Render and delete/suspend the Render service.
+3. Wait for Vercel to show the domain as valid (SSL is automatic), then remove the domain from the Render service "Moral-Merry" and suspend it. Keep Render running until the domain shows as valid on Vercel, so the site never goes offline.
 
 ### 3. Admin login (GitHub OAuth App)
 GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**

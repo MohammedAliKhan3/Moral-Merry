@@ -6,7 +6,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/home", "destination": "/", "permanent": true }
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/fees", "destination": "/admissions#fees", "permanent": true }
   ],
   "headers": [
     {

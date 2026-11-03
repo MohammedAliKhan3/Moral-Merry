@@ -33,8 +33,15 @@
 }
 .chat-msg {
   max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 16px;
-  font-size: 0.92rem; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere;
+  font-size: 0.92rem; line-height: 1.5; overflow-wrap: anywhere;
 }
+.chat-msg.user, .chat-msg.typing { white-space: pre-wrap; }
+.chat-msg p + p, .chat-msg p + ul, .chat-msg p + ol, .chat-msg ul + p, .chat-msg ol + p { margin-top: 0.5rem; }
+.chat-msg ul, .chat-msg ol { padding-left: 1.25rem; margin-top: 0.35rem; }
+.chat-msg ul { list-style: disc; }
+.chat-msg ol { list-style: decimal; }
+.chat-msg li + li { margin-top: 0.2rem; }
+.chatbot-subtitle a { color: #fff; }
 .chat-msg.bot { align-self: flex-start; background: #fff; color: var(--text); border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
 .chat-msg.user { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
 .chat-msg.typing { color: var(--muted); font-style: italic; }

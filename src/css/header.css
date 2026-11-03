@@ -54,7 +54,7 @@
   .site-nav { gap: 1.1rem; }
 }
 
-@media (max-width: 1140px) {
+@media (max-width: 1220px) {
   .nav-toggle { display: block; }
   .site-nav {
     position: fixed; top: var(--header-h); right: 0; bottom: 0;

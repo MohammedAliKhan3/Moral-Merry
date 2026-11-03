@@ -26,6 +26,7 @@ const PAGES = [
   { tpl: 'news.html', path: '/news' },
   { tpl: 'gallery.html', path: '/gallery' },
   { tpl: 'contact.html', path: '/contact' },
+  { tpl: 'ai-hub.html', path: '/ai-hub' },
   { tpl: '404.html', path: '/404', noSitemap: true },
 ];
 

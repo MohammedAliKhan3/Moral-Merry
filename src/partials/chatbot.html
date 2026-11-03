@@ -7,12 +7,12 @@
         <span class="chatbot-avatar" aria-hidden="true">🎓</span>
         <div>
           <p class="chatbot-title"><%= c.chatbot.name %></p>
-          <p class="chatbot-subtitle">School assistant</p>
+          <p class="chatbot-subtitle">School assistant · <a href="/ai-hub">Open AI Hub</a></p>
         </div>
         <button class="chatbot-close" type="button" aria-label="Close chat">&times;</button>
       </header>
-      <div class="chatbot-messages" role="log" aria-live="polite"></div>
-      <form class="chatbot-form">
+      <div class="chatbot-messages" data-chat-log role="log" aria-live="polite"></div>
+      <form class="chatbot-form" data-chat-form>
         <label class="sr-only" for="chatbot-input">Your question</label>
         <input id="chatbot-input" type="text" maxlength="500" placeholder="Ask me something…" autocomplete="off">
         <button type="submit" aria-label="Send">
@@ -21,4 +21,3 @@
       </form>
     </section>
   </div>
-  <script src="<%= asset('/js/chatbot.js') %>" defer></script>

@@ -1,15 +1,15 @@
-// POST /api/chat — answers visitor questions using the school facts from src/content.
-// Works with any OpenAI-compatible chat API. Configure with environment variables:
-//   CHAT_API_KEY  (required)  API key for the provider
-//   CHAT_API_URL  (optional)  defaults to Together AI's chat completions endpoint
-//   CHAT_MODEL    (optional)  model name for that provider
+// POST /api/chat — answers school questions and helps students with their studies,
+// using the school facts from src/content. Works with any OpenAI-compatible chat API:
+//   GROQ_API_KEY  (required)  API key (CHAT_API_KEY also works, for other providers)
+//   CHAT_API_URL  (optional)  defaults to Groq's chat completions endpoint
+//   CHAT_MODEL    (optional)  defaults to Llama 4 Scout on Groq
 const site = require('../src/content/site.json');
 const bot = require('../src/content/chatbot.json');
 const { readJson, send } = require('./_lib/http');
 
-const API_URL = process.env.CHAT_API_URL || 'https://api.together.xyz/v1/chat/completions';
-const MODEL = process.env.CHAT_MODEL || 'meta-llama/Llama-3.3-70B-Instruct-Turbo';
-const API_KEY = process.env.CHAT_API_KEY || process.env.TOGETHER_API_KEY;
+const API_URL = process.env.CHAT_API_URL || 'https://api.groq.com/openai/v1/chat/completions';
+const MODEL = process.env.CHAT_MODEL || 'meta-llama/llama-4-scout-17b-16e-instruct';
+const API_KEY = process.env.GROQ_API_KEY || process.env.CHAT_API_KEY;
 const MAX_MESSAGE = 500;
 const MAX_HISTORY = 10;
 
@@ -17,10 +17,17 @@ function systemPrompt() {
   const a = site.address;
   const phones = site.phones.map((p) => `${p.number} (${p.label})`).join(', ');
   return [
-    `You are ${bot.name}, the friendly assistant on the official website of ${site.name} (${site.alternateName}), ${a.city}.`,
-    'Answer questions from parents and students warmly and briefly (2-4 sentences), using only the facts below.',
-    `If you are not sure of something, say so and suggest calling ${site.phones[0].number} or using the Contact page.`,
-    'Never invent fees, dates, results or names. Politely decline questions unrelated to the school.',
+    `You are ${bot.name}, the friendly AI assistant and learning buddy on the official website of ${site.name} (${site.alternateName}), ${a.city}.`,
+    'You help in two ways:',
+    '1. School questions from parents and students: answer warmly and briefly using only the school facts below.',
+    `   If you are not sure, say so and suggest calling ${site.phones[0].number} or using the Contact page.`,
+    '   Never invent fees, dates, results or names; send fee questions to the school office.',
+    '2. Study and homework help for students (Nursery to Class 10): explain concepts simply, step by step,',
+    '   with child-friendly examples and real-life uses. Encourage curiosity and guide students to the answer',
+    '   rather than only giving it. Praise effort.',
+    'Keep every reply school-appropriate, kind and short (under about 150 words). Politely decline anything',
+    'unsafe or unrelated to school and learning.',
+    'Formatting: plain sentences; use "- " for bullet points, "1. " for numbered steps, and **bold** for key terms.',
     '',
     'School facts:',
     `- Name: ${site.name} (also known as ${site.alternateName})`,
@@ -33,7 +40,7 @@ function systemPrompt() {
     `- School hours: ${site.hours.days}, ${site.hours.label}`,
     `- Phone: ${phones}`,
     `- Email: ${site.emails.map((e) => e.address).join(', ')}`,
-    '- Website pages: Home, About, Admissions, Programs, Syllabus (free official Telangana SCERT textbooks for Class 9 and 10), News, Gallery, Contact',
+    '- Website pages: Home, About, Admissions (includes fees), Programs, Syllabus (free official Telangana SCERT textbooks for Class 9 and 10), News, Gallery, AI Hub, Contact',
     '',
     bot.knowledge,
   ].join('\n');
@@ -66,8 +73,8 @@ module.exports = async function handler(req, res) {
       headers: { Authorization: `Bearer ${API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: MODEL,
-        temperature: 0.4,
-        max_tokens: 300,
+        temperature: 0.5,
+        max_tokens: 500,
         messages: [{ role: 'system', content: systemPrompt() }, ...history, { role: 'user', content: message }],
       }),
       signal: AbortSignal.timeout(20000),

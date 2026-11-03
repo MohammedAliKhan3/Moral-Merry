@@ -1,0 +1,18 @@
+{
+  "seoTitle": "AI Hub – Homework Help & School Assistant | Moral Merry High School",
+  "seoDescription": "Ask MMS Champ, Moral Merry High School's AI learning buddy: simple, step-by-step help with lessons and homework, and answers to questions about the school.",
+  "hero": {
+    "title": "Welcome to the AI Hub",
+    "subtitle": "Your learning partner at Moral Merry School"
+  },
+  "panelTitle": "Ask MMS Champ",
+  "panelSubtitle": "School questions and homework help",
+  "greeting": "Hello, I'm your AI Champ from Moral Merry School — your learning buddy. Let's grow and shine together! What would you like to learn today?",
+  "suggestions": [
+    "Explain photosynthesis in simple words",
+    "Help me understand fractions",
+    "Give me tips to prepare for exams",
+    "What are the school timings?"
+  ],
+  "note": "MMS Champ is an AI and can make mistakes. Always check important answers with your teacher."
+}

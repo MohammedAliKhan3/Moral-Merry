@@ -43,8 +43,30 @@
       </div>
     </section>
 
-<% if (p.staff.members.length) { -%>
+<% if (p.timeline && p.timeline.events.length) { -%>
     <section class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.timeline.heading %></h2>
+          <p><%= p.timeline.subtitle %></p>
+        </div>
+        <ol class="timeline">
+<% p.timeline.events.forEach((e) => { -%>
+          <li class="timeline-item" data-reveal>
+            <span class="timeline-year"><%= e.year %></span>
+            <div class="card timeline-card">
+              <h3><%= e.title %></h3>
+              <p><%= e.text %></p>
+            </div>
+          </li>
+<% }) -%>
+        </ol>
+      </div>
+    </section>
+<% } -%>
+
+<% if (p.staff.members.length) { -%>
+    <section class="section section-alt">
       <div class="container">
         <div class="section-header" data-reveal>
           <h2><%= p.staff.heading %></h2>
