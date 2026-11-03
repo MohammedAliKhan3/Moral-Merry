@@ -1,0 +1,96 @@
+<% const p = c.contact; const a = site.address; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'contact' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-grid">
+        <article class="card contact-card" data-reveal>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+          </span>
+          <h2>Visit Us</h2>
+          <address><%= a.street %>,<br><%= a.city %>, <%= a.region %> <%= a.postalCode %></address>
+          <a class="text-link" href="<%= site.mapLink %>" target="_blank" rel="noopener">Get directions <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="card contact-card" data-reveal>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+          </span>
+          <h2>Call Us</h2>
+<% site.phones.forEach((ph) => { -%>
+          <p><span class="contact-label"><%= ph.label %></span><a class="contact-value" href="<%= tel(ph.number) %>"><%= ph.number %></a></p>
+<% }) -%>
+        </article>
+
+        <article class="card contact-card" data-reveal>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </span>
+          <h2>Email &amp; Hours</h2>
+<% site.emails.forEach((e) => { -%>
+          <p><span class="contact-label"><%= e.label %></span><a class="contact-value" href="mailto:<%= e.address %>"><%= e.address %></a></p>
+<% }) -%>
+          <p><span class="contact-label"><%= site.hours.days %></span><span class="contact-value"><%= site.hours.label %></span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.form.heading %></h2>
+          <p><%= p.form.subtitle %></p>
+        </div>
+        <form class="card contact-form" action="<%= site.contactFormUrl %>" method="post" data-success="<%= p.form.successMessage %>" data-reveal>
+          <input type="text" name="_honeypot" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic</option>
+<% p.form.subjects.forEach((s) => { -%>
+                <option><%= s %></option>
+<% }) -%>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p class="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section map-section">
+      <div class="container">
+        <div class="map-frame" data-reveal>
+          <iframe src="<%= site.mapEmbed %>" title="Map showing <%= site.name %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+<%- include('footer.html', { scripts: ['contact'] }) %>

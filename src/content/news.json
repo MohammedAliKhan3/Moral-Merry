@@ -1,0 +1,53 @@
+{
+  "seoTitle": "News & Events | Moral Merry High School",
+  "seoDescription": "Latest news, events and achievements from Moral Merry High School, Masab Tank, Hyderabad: science exhibitions, sports meets, tree plantation drives and more.",
+  "hero": {
+    "title": "School News",
+    "subtitle": "Stories and announcements from our school"
+  },
+  "listHeading": "Latest Updates",
+  "listSubtitle": "What's happening at Moral Merry",
+  "articles": [
+    {
+      "title": "Planting Trees Drive",
+      "slug": "planting-trees-drive",
+      "date": "May 2025",
+      "category": "Community",
+      "image": "/images/plantingTrees.png",
+      "excerpt": "Our students and staff have pledged to plant 100 trees in and around our community.",
+      "body": ""
+    },
+    {
+      "title": "Annual Science Exhibition",
+      "slug": "annual-science-exhibition",
+      "date": "",
+      "category": "Academics",
+      "image": "/images/scienceDay.jpg",
+      "excerpt": "Students presented working models, from the solar system to water conservation, at our science exhibition.",
+      "body": ""
+    },
+    {
+      "title": "Sports Meet",
+      "slug": "sports-meet",
+      "date": "",
+      "category": "Sports",
+      "image": "/images/sports.jpg",
+      "excerpt": "Students competed in track and field events and received medals and certificates at our sports meet.",
+      "body": ""
+    },
+    {
+      "title": "Smart Classes",
+      "slug": "smart-classes",
+      "date": "Coming Soon",
+      "category": "Academics",
+      "image": "/images/classroom.jpg",
+      "excerpt": "Smart classroom technology is being introduced to make lessons more interactive.",
+      "body": ""
+    }
+  ],
+  "newsletter": {
+    "heading": "Stay Connected",
+    "text": "Subscribe to our newsletter for monthly updates straight to your inbox.",
+    "image": "/images/newsPaper.png"
+  }
+}

@@ -1,0 +1,69 @@
+<% const p = c.admissions; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'admissions' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.process.heading %></h2>
+          <p><%= p.process.subtitle %></p>
+        </div>
+        <ol class="steps">
+<% p.process.steps.forEach((s, i) => { -%>
+          <li class="card step" data-reveal>
+            <span class="step-number"><%= String(i + 1).padStart(2, '0') %></span>
+            <h3><%= s.title %></h3>
+            <p><%= s.text %></p>
+          </li>
+<% }) -%>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.dates.heading %></h2>
+          <p><%= p.dates.subtitle %></p>
+        </div>
+        <div class="dates-grid">
+<% p.dates.items.forEach((d) => { -%>
+          <article class="card date-card" data-reveal>
+            <h3><%= d.term %></h3>
+            <p><%= d.date %></p>
+            <span class="status status-<%= String(d.status).toLowerCase() %>"><%= d.status %></span>
+          </article>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+    <section class="section fees" id="fees">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.fees.heading %></h2>
+          <p><%= p.fees.subtitle %></p>
+        </div>
+        <div class="fee-grid">
+<% p.fees.items.forEach((f) => { -%>
+          <article class="fee-card" data-reveal>
+            <h3><%= f.grade %></h3>
+            <p class="fee-amount"><%= f.amount %></p>
+            <p class="fee-note"><%= p.fees.note %></p>
+          </article>
+<% }) -%>
+        </div>
+        <div class="button-row center" data-reveal>
+          <a class="btn btn-light" href="/contact">Enquire Now</a>
+          <a class="btn btn-outline-light" href="<%= tel(site.phones[0].number) %>">Call the Office</a>
+        </div>
+      </div>
+    </section>
+
+<%- include('footer.html') %>

@@ -1,0 +1,40 @@
+{
+  "seoTitle": "Photo Gallery | Moral Merry High School, Hyderabad",
+  "seoDescription": "Photos of campus life at Moral Merry High School, Masab Tank: classrooms, science exhibitions, sports meets, yoga, fancy dress and celebrations.",
+  "hero": {
+    "title": "Campus Life & Events",
+    "subtitle": "Vibrant moments from our classrooms, celebrations and events"
+  },
+  "images": [
+    { "src": "/images/collab3.jpg", "caption": "Principal's vision and school highlights" },
+    { "src": "/images/collab2.jpg", "caption": "Meditation for self-confidence and love" },
+    { "src": "/images/collab1.jpg", "caption": "Our teachers and staff" },
+    { "src": "/images/assembly.jpg", "caption": "Morning assembly" },
+    { "src": "/images/scienceDay.jpg", "caption": "Science exhibition" },
+    { "src": "/images/sports.jpg", "caption": "Sports meet" },
+    { "src": "/images/fancyDress.jpg", "caption": "Fancy dress competition" },
+    { "src": "/images/yoga.jpg", "caption": "Yoga session" },
+    { "src": "/images/studentSong.jpg", "caption": "Students singing at an event" },
+    { "src": "/images/prize3.jpg", "caption": "Prize distribution" },
+    { "src": "/images/class2.jpg", "caption": "Classroom" },
+    { "src": "/images/class3.jpg", "caption": "Students at work in class" },
+    { "src": "/images/dress1.jpg", "caption": "Fancy dress" },
+    { "src": "/images/dress2.jpg", "caption": "Fancy dress" },
+    { "src": "/images/dress3.jpg", "caption": "Fancy dress" },
+    { "src": "/images/yoga2.jpg", "caption": "Yoga session" },
+    { "src": "/images/boysPose.jpg", "caption": "Celebrations" },
+    { "src": "/images/girlsPose.jpg", "caption": "Celebrations" },
+    { "src": "/images/kidsPlaying1.jpg", "caption": "Students on the sports ground" },
+    { "src": "/images/kidsPlaying2.jpg", "caption": "Games on the ground" },
+    { "src": "/images/kidsPlaying3.jpg", "caption": "Outdoor activities" },
+    { "src": "/images/scienceExhibition1.jpg", "caption": "Science exhibition projects" },
+    { "src": "/images/scienceExhibition2.jpg", "caption": "Science exhibition projects" },
+    { "src": "/images/scienceExhibition3.jpg", "caption": "Science exhibition projects" }
+  ],
+  "panorama": {
+    "heading": "360° Panorama View",
+    "subtitle": "Explore our campus in a panoramic view",
+    "image": "/images/panorama.jpg",
+    "caption": "Campus entrance – panorama view"
+  }
+}

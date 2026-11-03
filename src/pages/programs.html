@@ -1,0 +1,59 @@
+<% const p = c.programs; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'programs' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+<% [p.daily, p.special].forEach((group, gi) => { -%>
+    <section class="section<%= gi % 2 ? ' section-alt' : '' %>">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= group.heading %></h2>
+          <p><%= group.subtitle %></p>
+        </div>
+        <div class="card-grid">
+<% group.items.forEach((item) => { -%>
+          <article class="card program-card" data-reveal>
+            <span class="program-icon" aria-hidden="true"><%= item.icon %></span>
+            <h3><%= item.title %></h3>
+            <p><%= item.text %></p>
+          </article>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+<% }) -%>
+
+    <section class="section">
+      <div class="container narrow">
+        <div class="section-header" data-reveal>
+          <h2><%= p.grades.heading %></h2>
+          <p><%= p.grades.subtitle %></p>
+        </div>
+        <div class="tabs" data-reveal>
+          <div class="tab-list" role="tablist" aria-label="<%= p.grades.heading %>">
+<% p.grades.levels.forEach((l, i) => { -%>
+            <button class="tab" type="button" role="tab" id="tab-<%= i %>" aria-controls="panel-<%= i %>" aria-selected="<%= i === 0 %>"<% if (i) { %> tabindex="-1"<% } %>><%= l.name %></button>
+<% }) -%>
+          </div>
+<% p.grades.levels.forEach((l, i) => { -%>
+          <div class="card tab-panel" role="tabpanel" id="panel-<%= i %>" aria-labelledby="tab-<%= i %>"<% if (i) { %> hidden<% } %>>
+            <h3><%= l.focus %></h3>
+            <ul>
+<% l.points.forEach((pt) => { -%>
+              <li><%= pt %></li>
+<% }) -%>
+            </ul>
+          </div>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+<%- include('cta.html') %>
+
+<%- include('footer.html', { scripts: ['programs'] }) %>

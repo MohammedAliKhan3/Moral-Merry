@@ -1,0 +1,436 @@
+# Admin panel (moralmerry.in/admin) configuration.
+# Every save commits to GitHub; Vercel then rebuilds and the site updates in about a minute.
+backend:
+  name: github
+  repo: MohammedAliKhan3/Moral-Merry
+  branch: main
+  base_url: https://moralmerry.in
+  auth_endpoint: api/auth
+  commit_messages:
+    update: "Update {{slug}} content via admin"
+    uploadMedia: "Upload {{path}} via admin"
+    deleteMedia: "Delete {{path}} via admin"
+
+site_url: https://moralmerry.in
+display_url: https://moralmerry.in
+logo_url: /icon-192.png
+
+media_folder: src/images
+public_folder: /images
+
+collections:
+  - name: content
+    label: Website Content
+    icon: edit_note
+    editor:
+      preview: false
+    files:
+      # ---------------------------------------------------------------- School details
+      - name: site
+        label: School Details (address, phone, hours)
+        file: src/content/site.json
+        fields:
+          - { name: name, label: School name, widget: string }
+          - { name: alternateName, label: Other name people search for, widget: string }
+          - { name: tagline, label: Motto, widget: string }
+          - { name: description, label: Google description (shown in search results), widget: text, hint: "About 150–160 characters. Mention the area (Masab Tank, Hyderabad)." }
+          - { name: foundedYear, label: Year established, widget: number, value_type: int }
+          - { name: grades, label: Classes offered, widget: string }
+          - { name: recognition, label: Recognition, widget: string }
+          - { name: principal, label: Principal, widget: string }
+          - { name: logo, label: Logo (round), widget: image }
+          - { name: shareImage, label: Image shown when the site is shared on WhatsApp/Facebook, widget: image }
+          - name: address
+            label: Address
+            widget: object
+            fields:
+              - { name: street, label: Street, widget: string }
+              - { name: city, label: City, widget: string }
+              - { name: region, label: State, widget: string }
+              - { name: postalCode, label: PIN code, widget: string }
+              - { name: country, label: Country code, widget: string, default: IN }
+          - name: geo
+            label: Map coordinates
+            widget: object
+            collapsed: true
+            fields:
+              - { name: lat, label: Latitude, widget: number, value_type: float }
+              - { name: lng, label: Longitude, widget: number, value_type: float }
+          - { name: mapLink, label: Google Maps link, widget: string }
+          - { name: mapEmbed, label: Google Maps embed URL, widget: string }
+          - name: phones
+            label: Phone numbers
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: number, label: Number, widget: string }
+          - name: emails
+            label: Email addresses
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: address, label: Email, widget: string }
+          - name: hours
+            label: School hours
+            widget: object
+            fields:
+              - { name: days, label: Days (as shown), widget: string }
+              - { name: label, label: Time (as shown), widget: string }
+              - { name: opens, label: Opens (24h, for Google), widget: string, hint: "e.g. 08:00" }
+              - { name: closes, label: Closes (24h, for Google), widget: string, hint: "e.g. 15:00" }
+          - name: social
+            label: Social media
+            widget: list
+            fields:
+              - { name: platform, label: Platform, widget: select, options: [youtube, instagram, facebook, whatsapp, x, linkedin] }
+              - { name: url, label: Link, widget: string }
+          - { name: contactFormUrl, label: Contact form address (Formspark), widget: string }
+          - { name: newsletterUrl, label: Newsletter address (Mailchimp), widget: string }
+          - { name: googleSiteVerification, label: Google Search Console verification code, widget: string, required: false }
+
+      # ---------------------------------------------------------------- Home
+      - name: home
+        label: Home Page
+        file: src/content/home.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields:
+              - { name: title, label: Heading, widget: string }
+              - { name: subtitle, label: Motto line, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: image, label: Background photo, widget: image }
+              - name: primaryButton
+                label: First button
+                widget: object
+                fields: [{ name: label, label: Text, widget: string }, { name: link, label: Link, widget: string }]
+              - name: secondaryButton
+                label: Second button
+                widget: object
+                fields: [{ name: label, label: Text, widget: string }, { name: link, label: Link, widget: string }]
+          - name: journey
+            label: Our Journey
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - name: stats
+                label: Numbers
+                widget: list
+                fields: [{ name: value, label: Number, widget: string }, { name: label, label: Label, widget: string }]
+          - name: campus
+            label: Campus photos
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: items
+                label: Photos
+                widget: list
+                fields: [{ name: image, label: Photo, widget: image }, { name: caption, label: Caption, widget: string }]
+          - name: features
+            label: Why Choose Us
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Cards
+                widget: list
+                fields:
+                  - { name: icon, label: Emoji icon, widget: string }
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - { name: updatesHeading, label: Latest updates heading (shows the first 3 news articles), widget: string }
+
+      # ---------------------------------------------------------------- About
+      - name: about
+        label: About Page (principal, teachers)
+        file: src/content/about.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - name: mission
+            label: Mission & Vision
+            widget: object
+            fields:
+              - { name: heading, label: Mission heading, widget: string }
+              - { name: text, label: Mission, widget: text }
+              - { name: visionHeading, label: Vision heading, widget: string }
+              - { name: vision, label: Vision, widget: text }
+              - { name: image, label: Photo, widget: image }
+          - name: stats
+            label: Numbers
+            widget: list
+            fields: [{ name: value, label: Number, widget: string }, { name: label, label: Label, widget: string }]
+          - name: principal
+            label: Principal
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: photo, label: Photo, widget: image }
+              - { name: message, label: Message, widget: text }
+          - name: timeline
+            label: Timeline
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: events
+                label: Milestones (oldest first)
+                widget: list
+                summary: "{{fields.year}} – {{fields.title}}"
+                fields:
+                  - { name: year, label: Year, widget: string }
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Description, widget: text }
+          - name: staff
+            label: Teachers & Staff
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: members
+                label: People
+                widget: list
+                summary: "{{fields.name}} – {{fields.role}}"
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: role, label: Role / qualification, widget: string, required: false }
+                  - { name: photo, label: Photo, widget: image, required: false }
+                  - { name: quote, label: Quote / thought, widget: text, required: false }
+
+      # ---------------------------------------------------------------- Admissions
+      - name: admissions
+        label: Admissions Page (fees, dates)
+        file: src/content/admissions.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - name: process
+            label: Admission steps
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: steps
+                label: Steps
+                widget: list
+                fields: [{ name: title, label: Title, widget: string }, { name: text, label: Text, widget: text }]
+          - name: dates
+            label: Admission dates
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: items
+                label: Dates
+                widget: list
+                fields:
+                  - { name: term, label: Term / year, widget: string }
+                  - { name: date, label: Date or note, widget: string }
+                  - { name: status, label: Status, widget: select, options: [Open, Closed, Soon] }
+          - name: fees
+            label: Fees
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: note, label: Note under each fee, widget: string }
+              - name: items
+                label: Fees
+                widget: list
+                fields: [{ name: grade, label: Classes, widget: string }, { name: amount, label: Amount, widget: string }]
+
+      # ---------------------------------------------------------------- Programs
+      - name: programs
+        label: Programs Page
+        file: src/content/programs.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - name: daily
+            label: Daily programs
+            widget: object
+            fields: &programGroup
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: items
+                label: Programs
+                widget: list
+                fields:
+                  - { name: icon, label: Emoji icon, widget: string }
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: special
+            label: Special programs
+            widget: object
+            fields: *programGroup
+          - name: grades
+            label: Grade-level focus
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - name: levels
+                label: Levels
+                widget: list
+                fields:
+                  - { name: name, label: Tab name, widget: string }
+                  - { name: focus, label: Focus heading, widget: string }
+                  - { name: points, label: Points, widget: list, field: { name: point, label: Point, widget: string } }
+
+      # ---------------------------------------------------------------- Syllabus
+      - name: syllabus
+        label: Syllabus & Textbooks
+        file: src/content/syllabus.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - { name: intro, label: Introduction, widget: text }
+          - name: source
+            label: Link to all SCERT textbooks
+            widget: object
+            fields: [{ name: label, label: Link text, widget: string }, { name: url, label: Link, widget: string }]
+          - name: classes
+            label: Classes
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Class name, widget: string }
+              - { name: id, label: Page anchor, widget: string, hint: "e.g. class-10 (lowercase, no spaces)" }
+              - name: subjects
+                label: Subjects
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { name: icon, label: Emoji icon, widget: string }
+                  - { name: name, label: Subject, widget: string }
+                  - { name: topics, label: Topics, widget: text }
+                  - { name: url, label: Textbook link, widget: string, hint: "Link to the official PDF or Google Drive file" }
+                  - { name: note, label: Note (e.g. PDF · 18 MB), widget: string, required: false }
+
+      # ---------------------------------------------------------------- News
+      - name: news
+        label: News & Events
+        file: src/content/news.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - { name: listHeading, label: List heading, widget: string }
+          - { name: listSubtitle, label: List subtitle, widget: string }
+          - name: articles
+            label: Articles (newest first; the first 3 also show on the Home page)
+            widget: list
+            summary: "{{fields.title}} ({{fields.date}})"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: slug, label: Web address, widget: string, hint: "Lowercase words with dashes, e.g. annual-day-2026. The article opens at moralmerry.in/news/<this>." }
+              - { name: date, label: Date (as shown), widget: string, required: false, hint: "e.g. 15 August 2026" }
+              - { name: category, label: Category, widget: string, required: false }
+              - { name: image, label: Photo, widget: image }
+              - { name: excerpt, label: Short summary, widget: text }
+              - { name: body, label: Full story (optional; leave blank for no separate page), widget: text, required: false }
+          - name: newsletter
+            label: Newsletter box
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: image, label: Image, widget: image, required: false }
+
+      # ---------------------------------------------------------------- Gallery
+      - name: gallery
+        label: Gallery
+        file: src/content/gallery.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - name: images
+            label: Photos
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: src, label: Photo, widget: image }
+              - { name: caption, label: Caption, widget: string }
+          - name: panorama
+            label: 360° panorama
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: image, label: Panorama photo, widget: image, required: false }
+              - { name: caption, label: Caption, widget: string }
+
+      # ---------------------------------------------------------------- Contact
+      - name: contact
+        label: Contact Page
+        file: src/content/contact.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - name: form
+            label: Contact form
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: subjects, label: Subject options, widget: list, field: { name: subject, label: Subject, widget: string } }
+              - { name: successMessage, label: Message after sending, widget: string }
+
+      # ---------------------------------------------------------------- AI Hub
+      - name: ai-hub
+        label: AI Hub Page
+        file: src/content/ai-hub.json
+        fields:
+          - { name: seoTitle, label: Browser tab / Google title, widget: string }
+          - { name: seoDescription, label: Google description, widget: text }
+          - name: hero
+            label: Top banner
+            widget: object
+            fields: [{ name: title, label: Heading, widget: string }, { name: subtitle, label: Subtitle, widget: string }]
+          - { name: panelTitle, label: Chat box title, widget: string }
+          - { name: panelSubtitle, label: Chat box subtitle, widget: string }
+          - { name: greeting, label: First message, widget: text }
+          - { name: suggestions, label: Suggested questions, widget: list, field: { name: suggestion, label: Question, widget: string } }
+          - { name: note, label: Note under the chat, widget: string }
+
+      # ---------------------------------------------------------------- Chatbot
+      - name: chatbot
+        label: Chatbot
+        file: src/content/chatbot.json
+        fields:
+          - { name: enabled, label: Show the chatbot, widget: boolean }
+          - { name: name, label: Bot name, widget: string }
+          - { name: greeting, label: First message, widget: text }
+          - { name: knowledge, label: What the bot knows (address, phone and hours are added automatically from School Details), widget: text }

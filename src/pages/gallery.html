@@ -1,0 +1,50 @@
+<% const p = c.gallery; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'gallery' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <ul class="gallery-grid">
+<% p.images.forEach((im) => { -%>
+          <li>
+            <a class="gallery-item" href="<%= imgUrl(im.src, 1600) %>" data-caption="<%= im.caption %>">
+              <%- img(im.src, { alt: im.caption, sizes: '(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw' }) %>
+              <span class="gallery-caption"><%= im.caption %></span>
+            </a>
+          </li>
+<% }) -%>
+        </ul>
+      </div>
+    </section>
+
+<% if (p.panorama && p.panorama.image) { -%>
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= p.panorama.heading %></h2>
+          <p><%= p.panorama.subtitle %></p>
+        </div>
+        <div class="panorama" id="panorama" data-src="<%= imgUrl(p.panorama.image, 'full') %>" data-caption="<%= p.panorama.caption %>">
+          <p class="panorama-loading">Loading 360° view…</p>
+        </div>
+      </div>
+    </section>
+<% } -%>
+
+    <dialog class="lightbox" aria-label="Photo viewer">
+      <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+      <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous photo">‹</button>
+      <figure>
+        <img alt="">
+        <figcaption></figcaption>
+      </figure>
+      <button class="lightbox-nav lightbox-next" type="button" aria-label="Next photo">›</button>
+    </dialog>
+
+<%- include('footer.html', { scripts: ['gallery'] }) %>

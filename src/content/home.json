@@ -1,0 +1,42 @@
+{
+  "seoTitle": "Moral Merry High School | School in Masab Tank, Hyderabad",
+  "hero": {
+    "title": "Moral Merry High School",
+    "subtitle": "Lighted to Lighten",
+    "text": "Values-based education from Nursery to Class 10 in the heart of Masab Tank, Hyderabad.",
+    "image": "/images/kidsPlaying1.jpg",
+    "primaryButton": { "label": "Apply Now", "link": "/admissions" },
+    "secondaryButton": { "label": "Explore Programs", "link": "/programs" }
+  },
+  "journey": {
+    "heading": "Our Journey",
+    "text": "Since 1980, Moral Merry High School has grown from a small community school into a trusted name in Masab Tank, Hyderabad. Our commitment to moral values, discipline and academic excellence has stayed unwavering through decades of growth.",
+    "stats": [
+      { "value": "45+", "label": "Years of Excellence" },
+      { "value": "90%", "label": "Graduation Rate" },
+      { "value": "10+", "label": "Activities Every Year" }
+    ]
+  },
+  "campus": {
+    "heading": "Life at Moral Merry",
+    "subtitle": "Learning, celebrating and growing together every day",
+    "items": [
+      { "image": "/images/SirSpeech.jpg", "caption": "Engaging classroom sessions" },
+      { "image": "/images/yoga.jpg", "caption": "Yoga and meditation for a calm, focused mind" },
+      { "image": "/images/treeDress.jpg", "caption": "Celebrating nature on Green Day" },
+      { "image": "/images/StudentMarch.jpg", "caption": "Independence Day rally" }
+    ]
+  },
+  "features": {
+    "heading": "Why Choose Moral Merry",
+    "items": [
+      { "icon": "📚", "title": "Academic Excellence", "text": "A balanced curriculum from Nursery to Class 10, with smart classes and weekly assessments." },
+      { "icon": "⚽", "title": "Sports & Fitness", "text": "Coaching in cricket, football, basketball and athletics, plus an annual sports meet." },
+      { "icon": "🎭", "title": "Arts & Culture", "text": "Music, dance, drama, art and fancy-dress events that build confidence." },
+      { "icon": "🧘", "title": "Yoga & Meditation", "text": "Regular yoga and meditation sessions help students stay calm and focused." },
+      { "icon": "🗣️", "title": "English Fluency", "text": "Daily speaking practice, with awards for excellent English communication." },
+      { "icon": "🔬", "title": "Science Exhibitions", "text": "An annual science fair where students build and present their own projects." }
+    ]
+  },
+  "updatesHeading": "Latest Updates"
+}

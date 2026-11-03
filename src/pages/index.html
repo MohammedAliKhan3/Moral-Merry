@@ -1,0 +1,94 @@
+<% const h = c.home; -%>
+<%- include('header.html', { title: h.seoTitle, description: site.description, css: 'home' }) %>
+
+    <section class="home-hero">
+<% if (h.hero.image) { -%>
+      <%- img(h.hero.image, { cls: 'home-hero-bg', eager: true }) %>
+<% } -%>
+      <div class="container home-hero-content">
+        <p class="eyebrow"><%= site.recognition %> · Since <%= site.foundedYear %></p>
+        <h1><%= h.hero.title %></h1>
+        <p class="home-hero-tagline"><%= h.hero.subtitle %></p>
+        <p class="home-hero-text"><%= h.hero.text %></p>
+        <div class="button-row">
+          <a class="btn btn-light" href="<%= h.hero.primaryButton.link %>"><%= h.hero.primaryButton.label %></a>
+          <a class="btn btn-outline-light" href="<%= h.hero.secondaryButton.link %>"><%= h.hero.secondaryButton.label %></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section journey">
+      <div class="container narrow" data-reveal>
+        <h2><%= h.journey.heading %></h2>
+        <p class="lead"><%= h.journey.text %></p>
+        <ul class="stat-row">
+<% h.journey.stats.forEach((s) => { -%>
+          <li class="stat"><span class="stat-value"><%= s.value %></span><span class="stat-label"><%= s.label %></span></li>
+<% }) -%>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= h.campus.heading %></h2>
+          <p><%= h.campus.subtitle %></p>
+        </div>
+        <div class="campus-grid">
+<% h.campus.items.forEach((item) => { -%>
+          <figure class="campus-card" data-reveal>
+            <%- img(item.image, { alt: item.caption, sizes: '(min-width: 760px) 50vw, 100vw' }) %>
+            <figcaption>
+              <span><%= item.caption %></span>
+              <a class="pill-link" href="/gallery">View Gallery <span aria-hidden="true">→</span></a>
+            </figcaption>
+          </figure>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= h.features.heading %></h2>
+        </div>
+        <div class="card-grid">
+<% h.features.items.forEach((f) => { -%>
+          <article class="card feature-card" data-reveal>
+            <span class="feature-icon" aria-hidden="true"><%= f.icon %></span>
+            <h3><%= f.title %></h3>
+            <p><%= f.text %></p>
+          </article>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2><%= h.updatesHeading %></h2>
+        </div>
+        <div class="card-grid">
+<% c.news.articles.slice(0, 3).forEach((n) => { const link = n.body ? '/news/' + n.slug : '/news'; -%>
+          <article class="card news-card" data-reveal>
+            <%- img(n.image, { alt: n.title, cls: 'news-card-img', sizes: '(min-width: 1000px) 33vw, 100vw' }) %>
+            <div class="news-card-body">
+<% if (n.date) { -%>
+              <p class="news-date"><%= n.date %></p>
+<% } -%>
+              <h3><%= n.title %></h3>
+              <p><%= n.excerpt %></p>
+              <a class="text-link" href="<%= link %>">Read more <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+<% }) -%>
+        </div>
+      </div>
+    </section>
+
+<%- include('cta.html') %>
+
+<%- include('footer.html') %>

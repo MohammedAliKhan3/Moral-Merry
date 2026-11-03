@@ -1,0 +1,43 @@
+<% const p = c['ai-hub']; -%>
+<%- include('header.html', { title: p.seoTitle, description: p.seoDescription, css: 'ai-hub' }) %>
+
+    <section class="page-hero">
+      <div class="container">
+        <h1><%= p.hero.title %></h1>
+        <p><%= p.hero.subtitle %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+<% if (c.chatbot.enabled) { -%>
+        <section class="card hub-chat" data-chat-panel data-greeting="<%= p.greeting %>" data-phone="<%= site.phones[0] && site.phones[0].number %>" aria-labelledby="hub-chat-title">
+          <header class="hub-chat-header">
+            <span class="chatbot-avatar" aria-hidden="true">🎓</span>
+            <div>
+              <h2 id="hub-chat-title"><%= p.panelTitle %></h2>
+              <p><%= p.panelSubtitle %></p>
+            </div>
+          </header>
+          <div class="hub-chat-log" data-chat-log role="log" aria-live="polite"></div>
+<% if (p.suggestions.length) { -%>
+          <div class="hub-suggestions" aria-label="Suggested questions">
+<% p.suggestions.forEach((s) => { -%>
+            <button type="button" class="hub-suggestion" data-suggestion="<%= s %>"><%= s %></button>
+<% }) -%>
+          </div>
+<% } -%>
+          <form class="hub-chat-form" data-chat-form>
+            <label class="sr-only" for="hub-input">Type your question</label>
+            <input id="hub-input" type="text" maxlength="500" placeholder="Type your question here…" autocomplete="off">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </section>
+        <p class="hub-note"><%= p.note %></p>
+<% } else { -%>
+        <p class="lead">The AI assistant is currently unavailable. Please <a href="/contact">contact the school office</a>.</p>
+<% } -%>
+      </div>
+    </section>
+
+<%- include('footer.html', { hideChatWidget: true }) %>

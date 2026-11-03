@@ -1,0 +1,17 @@
+.class-jump { margin-top: 1.75rem; }
+
+.syllabus-intro { max-width: 760px; margin: 0 auto 1rem; text-align: center; }
+
+.class-block { padding-top: 2.5rem; }
+.class-block h2 { padding-bottom: 0.75rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
+.class-block .card-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+
+.subject-card { display: flex; flex-direction: column; border-top: 4px solid var(--primary); }
+.subject-icon { display: block; font-size: 2rem; margin-bottom: 0.5rem; }
+.subject-card p { flex: 1; margin-bottom: 1.25rem; }
+.subject-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.subject-actions .btn { padding: 0.65rem 1.3rem; min-height: 44px; }
+.subject-note { font-size: 0.85rem; color: var(--muted); }
+
+.syllabus-source { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.95rem; }
+.syllabus-source .text-link { margin-left: 0.25rem; }
